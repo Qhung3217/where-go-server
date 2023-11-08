@@ -10,11 +10,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class RestaurantGallery {
     @Id
@@ -25,7 +27,7 @@ public class RestaurantGallery {
     @Column(name = "res_gallery_image", nullable = false)
     private String image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 }

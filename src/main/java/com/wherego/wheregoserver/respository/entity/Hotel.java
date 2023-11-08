@@ -1,5 +1,9 @@
 package com.wherego.wheregoserver.respository.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -7,7 +11,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,5 +64,23 @@ public class Hotel {
         this.price = price;
         this.district = district;
     }
+
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<HotelGallery> galleries;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "hotel_room_feature", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_feature_id"))
+    private Set<RoomFeature> roomFeatures = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "hotel_room_type", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_type_id"))
+    private Set<RoomType> roomTypes = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "hotel_property_amenity", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "property_amenity_id"))
+    private Set<PropertyAmenity> propertyAmenities = new HashSet<PropertyAmenity>();
+
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
+    private Set<HotelReview> reviews;
 
 }

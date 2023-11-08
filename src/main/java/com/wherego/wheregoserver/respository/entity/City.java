@@ -38,7 +38,7 @@ public class City {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<District> districts;
 
 }

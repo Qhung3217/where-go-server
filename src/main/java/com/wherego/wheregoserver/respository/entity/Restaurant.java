@@ -65,7 +65,10 @@ public class Restaurant {
     @JoinTable(name = "restaurant_meal", joinColumns = @JoinColumn(name = "restaurant_id"), inverseJoinColumns = @JoinColumn(name = "meal_id"))
     private Set<Meal> meals = new HashSet<>();
 
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<RestaurantGallery> gallery;
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<RestaurantGallery> galleries;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private Set<RestaurantReview> reviews;
 
 }

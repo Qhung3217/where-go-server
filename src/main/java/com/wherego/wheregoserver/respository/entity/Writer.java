@@ -31,7 +31,7 @@ public class Writer {
     @Column(name = "writer_tels", nullable = false)
     private String tels;
 
-    @Column(name = "writer_avatar", nullable = false)
+    @Column(name = "writer_avatar", nullable = true)
     private String avatar;
 
     @Column(name = "writer_dob", nullable = false)
@@ -53,7 +53,7 @@ public class Writer {
         this.username = username;
     }
 
-    @OneToMany(mappedBy = "writer", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Article> articles;
 
 }

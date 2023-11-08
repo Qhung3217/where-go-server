@@ -11,11 +11,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "article")
 public class Article {
@@ -36,7 +38,7 @@ public class Article {
     @Column(name = "article_short_description", nullable = false)
     private String shortDescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_email", nullable = false)
     private Writer writer;
     // if name column is same reference column, then referenceColumnName can ignore

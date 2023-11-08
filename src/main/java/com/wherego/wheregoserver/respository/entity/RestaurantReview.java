@@ -15,20 +15,27 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "hotel_gallery")
-public class HotelGallery {
+@Table(name = "restaurant_review")
+public class RestaurantReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hotel_gallery_id")
+    @Column(name = "restaurant_review_id")
     private Long id;
 
-    @Column(name = "hotel_gallery_image", nullable = false)
-    private String image;
+    @Column(name = "restaurant_review_comment", nullable = false)
+    private String comment;
+
+    @Column(name = "restaurant_review_rating", nullable = false)
+    private int rating;
 
     @ManyToOne()
-    @JoinColumn(name = "hotel_id", nullable = false)
-    private Hotel hotel;
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;
+
+    @ManyToOne()
+    @JoinColumn(name = "traveler_id", nullable = false)
+    private Traveler traveler;
 }

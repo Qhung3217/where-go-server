@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.respository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,20 +16,29 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "hotel_gallery")
-public class HotelGallery {
+@Table(name = "place_review")
+public class PlaceReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hotel_gallery_id")
+    @Column(name = "place_review_id")
     private Long id;
 
-    @Column(name = "hotel_gallery_image", nullable = false)
-    private String image;
+    @Column(name = "place_review_comment", nullable = false)
+    private String comment;
+
+    @Column(name = "place_review_rating", nullable = false)
+    private int rating;
 
     @ManyToOne()
-    @JoinColumn(name = "hotel_id", nullable = false)
-    private Hotel hotel;
+    @JoinColumn(name = "place_id", nullable = false)
+    @JsonIgnore
+    private Place place;
+
+    @ManyToOne()
+    @JoinColumn(name = "traveler_id", nullable = false)
+    @JsonIgnore
+    private Traveler traveler;
 }

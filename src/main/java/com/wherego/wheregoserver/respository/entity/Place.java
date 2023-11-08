@@ -49,11 +49,14 @@ public class Place {
         this.district = district;
     }
 
-    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<PlaceGallery> gallery;
+    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<PlaceGallery> galleries;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "place_type", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "place_type_id"))
+    @JoinTable(name = "place_place_type", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "place_type_id"))
     private Set<PlaceType> types = new HashSet<>();
+
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private Set<PlaceReview> reviews;
 
 }

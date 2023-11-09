@@ -26,7 +26,7 @@ public class HotelReview {
     @Column(name = "hotel_review_id")
     private Long id;
 
-    @Column(name = "hotel_review_comment", nullable = false)
+    @Column(name = "hotel_review_comment", nullable = false, length=1000)
     private String comment;
 
     @Column(name = "hotel_review_rating", nullable = false)

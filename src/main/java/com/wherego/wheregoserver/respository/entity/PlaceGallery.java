@@ -27,7 +27,7 @@ public class PlaceGallery {
     @Column(name = "place_gallery_id")
     private Long id;
 
-    @Column(name = "place_gallery_image", nullable = false)
+    @Column(name = "place_gallery_image", nullable = false, length=512)
     private String image;
 
     @ManyToOne(fetch = FetchType.EAGER)

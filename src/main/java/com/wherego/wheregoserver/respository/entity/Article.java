@@ -29,13 +29,13 @@ public class Article {
     @Column(name = "article_title", nullable = false)
     private String title;
 
-    @Column(name = "article_thumbnail", nullable = false)
+    @Column(name = "article_thumbnail", nullable = false, length=512)
     private String thumbnail;
 
-    @Column(name = "article_content", nullable = false)
+    @Column(name = "article_content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "article_short_description", nullable = false)
+    @Column(name = "article_short_description", nullable = false, length=800)
     private String shortDescription;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -22,10 +22,10 @@ public class Traveler {
     @Column(name= "traveler_name", nullable=false)
     private String name;
 
-    @Column(name= "traveler_tels", nullable = false)
+    @Column(name= "traveler_tels", nullable = false, length=10)
     private String tels;
 
-    @Column(name= "traveler_avatar", nullable = true)
+    @Column(name= "traveler_avatar", nullable = true, length=512)
     private String avatar;
 
     @Column(name= "traveler_dob", nullable = false)

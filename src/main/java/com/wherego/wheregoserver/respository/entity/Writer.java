@@ -28,10 +28,10 @@ public class Writer {
     @Column(name = "writer_name", nullable = false)
     private String name;
 
-    @Column(name = "writer_tels", nullable = false)
+    @Column(name = "writer_tels", nullable = false, length=10)
     private String tels;
 
-    @Column(name = "writer_avatar", nullable = true)
+    @Column(name = "writer_avatar", nullable = true, length=512)
     private String avatar;
 
     @Column(name = "writer_dob", nullable = false)

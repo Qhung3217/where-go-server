@@ -35,7 +35,7 @@ public class Place {
     @Column(name = "place_name", nullable = false)
     private String name;
 
-    @Column(name = "place_thumbnail", nullable = false)
+    @Column(name = "place_thumbnail", nullable = false, length=512)
     private String thumbnail;
 
     @ManyToOne(fetch = FetchType.EAGER)

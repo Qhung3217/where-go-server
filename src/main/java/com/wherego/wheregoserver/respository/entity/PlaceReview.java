@@ -26,7 +26,7 @@ public class PlaceReview {
     @Column(name = "place_review_id")
     private Long id;
 
-    @Column(name = "place_review_comment", nullable = false)
+    @Column(name = "place_review_comment", nullable = false, length=1000)
     private String comment;
 
     @Column(name = "place_review_rating", nullable = false)

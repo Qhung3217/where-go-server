@@ -1,6 +1,6 @@
 package com.wherego.wheregoserver.boundary;
 
-import com.wherego.wheregoserver.dto.HotelFilterInforDto;
+import com.wherego.wheregoserver.dto.hotel.HotelFilterInforDto;
 import com.wherego.wheregoserver.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

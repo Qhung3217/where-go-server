@@ -1,6 +1,6 @@
 package com.wherego.wheregoserver.service.impl;
 
-import com.wherego.wheregoserver.dto.HotelFilterInforDto;
+import com.wherego.wheregoserver.dto.hotel.HotelFilterInforDto;
 import com.wherego.wheregoserver.respository.HotelRepository;
 import com.wherego.wheregoserver.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;

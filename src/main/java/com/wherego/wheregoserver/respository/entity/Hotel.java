@@ -74,4 +74,7 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
     private Set<HotelReview> reviews;
 
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
+    private Set<Booking> bookings;
+
 }

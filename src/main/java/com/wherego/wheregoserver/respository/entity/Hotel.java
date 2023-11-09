@@ -31,10 +31,10 @@ public class Hotel {
     @Column(name = "hotel_class", nullable = false)
     private String hotelClass;
 
-    @Column(name = "hotel_description", nullable = false)
+    @Column(name = "hotel_description", nullable = false, length= 800)
     private String description;
 
-    @Column(name = "hotel_thumbnail", nullable = false)
+    @Column(name = "hotel_thumbnail", nullable = false, length=512)
     private String thumbnail;
 
     @Column(name = "hotel_price", nullable = false)

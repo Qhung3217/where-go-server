@@ -38,7 +38,7 @@ public class Restaurant {
     @Column(name = "restaurant_address", nullable = false)
     private String address;
 
-    @Column(name = "restaurant_thumbnail", nullable = false)
+    @Column(name = "restaurant_thumbnail", nullable = false, length=512)
     private String thumbnail;
 
     @ManyToOne(fetch = FetchType.EAGER)

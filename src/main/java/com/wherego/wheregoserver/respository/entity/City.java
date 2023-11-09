@@ -29,7 +29,7 @@ public class City {
     @Column(name = "city_name", nullable = false)
     private String name;
 
-    @Column(name = "city_description", nullable = false)
+    @Column(name = "city_description", nullable = false, length=800)
     private String description;
 
     public City(Long id, String name, String description) {

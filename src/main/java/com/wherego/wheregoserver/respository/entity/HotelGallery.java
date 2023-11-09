@@ -25,7 +25,7 @@ public class HotelGallery {
     @Column(name = "hotel_gallery_id")
     private Long id;
 
-    @Column(name = "hotel_gallery_image", nullable = false)
+    @Column(name = "hotel_gallery_image", nullable = false, length=512)
     private String image;
 
     @ManyToOne()

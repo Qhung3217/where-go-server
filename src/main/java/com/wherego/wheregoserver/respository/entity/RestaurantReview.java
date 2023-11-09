@@ -25,7 +25,7 @@ public class RestaurantReview {
     @Column(name = "restaurant_review_id")
     private Long id;
 
-    @Column(name = "restaurant_review_comment", nullable = false)
+    @Column(name = "restaurant_review_comment", nullable = false, length=800)
     private String comment;
 
     @Column(name = "restaurant_review_rating", nullable = false)

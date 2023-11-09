@@ -1,11 +1,13 @@
 package com.wherego.wheregoserver.respository;
 
+import com.wherego.wheregoserver.respository.entity.Hotel;
 import com.wherego.wheregoserver.respository.entity.PropertyAmenity;
 import com.wherego.wheregoserver.respository.entity.RoomFeature;
 import com.wherego.wheregoserver.respository.entity.RoomType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +17,20 @@ public class HotelRepository {
 
     @PersistenceContext
     private EntityManager em;
+
+    public List<Hotel> getAll() {
+        TypedQuery<Hotel> query = em.createNamedQuery("select.All.Hotel", Hotel.class);
+        List<Hotel> result = query.getResultList();
+        for (Hotel hotel : result) {
+            Hibernate.initialize(hotel.getPropertyAmenities());
+            Hibernate.initialize(hotel.getRoomFeatures());
+            Hibernate.initialize(hotel.getRoomTypes());
+            Hibernate.initialize(hotel.getReviews());
+            Hibernate.initialize(hotel.getGalleries());
+            Hibernate.initialize(hotel.getBookings());
+        }
+        return result;
+    }
 
     public List<RoomFeature> getRoomFeatures() {
         TypedQuery<RoomFeature> query = em.createNamedQuery("select" +

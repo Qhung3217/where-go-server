@@ -42,4 +42,12 @@ public class HotelServiceImpl implements HotelService {
                 .map(hotel->hotelMapper.toSimpleHotelDto(hotel))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<SimpleHotelDto> getRandom(int quantity) {
+        return hotelRepository.getRandom(quantity)
+                .stream()
+                .map(hotelMapper::toSimpleHotelDto)
+                .collect(Collectors.toList());
+    }
 }

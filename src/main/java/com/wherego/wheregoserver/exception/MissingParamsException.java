@@ -27,4 +27,7 @@ public class MissingParamsException extends RuntimeException{
         }
         return message.toString();
     }
+    public HttpStatus getStatus() {
+        return HttpStatus.UNPROCESSABLE_ENTITY;
+    }
 }

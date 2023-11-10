@@ -1,6 +1,7 @@
 
 package com.wherego.wheregoserver.respository;
 
+import com.wherego.wheregoserver.exception.ResourceNotFoundException;
 import com.wherego.wheregoserver.respository.entity.Hotel;
 import com.wherego.wheregoserver.respository.entity.PropertyAmenity;
 import com.wherego.wheregoserver.respository.entity.RoomFeature;
@@ -9,7 +10,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,6 +19,13 @@ public class HotelRepository {
 
     @PersistenceContext
     private EntityManager em;
+
+    public Hotel getById(Long id){
+        Hotel result = em.find(Hotel.class,id);
+        if (result ==null)
+            throw new ResourceNotFoundException("Hotel", "id", id);
+        return result;
+    }
 
     public List<Hotel> getRandom(int quantity){
         if (quantity == 0)

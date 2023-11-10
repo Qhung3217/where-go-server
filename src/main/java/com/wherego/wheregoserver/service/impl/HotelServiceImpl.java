@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.service.impl;
 
+import com.wherego.wheregoserver.dto.hotel.DetailHotelDto;
 import com.wherego.wheregoserver.dto.hotel.HotelFilterInforDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
 import com.wherego.wheregoserver.mapper.HotelMapper;
@@ -49,5 +50,10 @@ public class HotelServiceImpl implements HotelService {
                 .stream()
                 .map(hotelMapper::toSimpleHotelDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DetailHotelDto getById(Long id) {
+        return hotelMapper.toDetailHotelDto((hotelRepository.getById(id)));
     }
 }

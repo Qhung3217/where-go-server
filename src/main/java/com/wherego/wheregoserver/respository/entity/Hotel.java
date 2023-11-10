@@ -14,7 +14,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "hotel")
 @NamedQueries({
-@NamedQuery(name="select.All.Hotel", query="SELECT h FROM Hotel h")
+@NamedQuery(name="select.All.Hotel", query="SELECT h FROM Hotel h"),
+        @NamedQuery(name="search.Hotel", query="SELECT h FROM Hotel h WHERE lower(h.name) LIKE " +
+                "lower(:keyword)")
 })
 public class Hotel {
     @Id

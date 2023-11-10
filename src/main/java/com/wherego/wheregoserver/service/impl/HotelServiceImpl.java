@@ -29,7 +29,17 @@ public class HotelServiceImpl implements HotelService {
     public List<SimpleHotelDto> getAll() {
         return hotelRepository.getAll()
                 .stream()
-                .map(hotel -> hotelMapper.toSimpleHotelDto(hotel))
+                .map(hotelMapper::toSimpleHotelDto)
+                .collect(Collectors.toList());
+        /*hotelMapper::toSimpleHotelDto
+         -> lambda expression alternative*/
+    }
+
+    @Override
+    public List<SimpleHotelDto> search(String key) {
+        return hotelRepository.search(key)
+                .stream()
+                .map(hotel->hotelMapper.toSimpleHotelDto(hotel))
                 .collect(Collectors.toList());
     }
 }

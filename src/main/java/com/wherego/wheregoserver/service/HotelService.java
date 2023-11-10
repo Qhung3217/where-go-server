@@ -10,4 +10,5 @@ import java.util.List;
 public interface HotelService {
     HotelFilterInforDto getHotelFilterInfor();
     List<SimpleHotelDto> getAll();
+    List<SimpleHotelDto> search(String key);
 }

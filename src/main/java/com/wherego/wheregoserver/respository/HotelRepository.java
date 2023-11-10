@@ -20,6 +20,14 @@ public class HotelRepository {
     @PersistenceContext
     private EntityManager em;
 
+    public List<Hotel> getRandom(int quantity){
+        if (quantity == 0)
+            quantity = 20;
+        TypedQuery<Hotel> query = em.createNamedQuery("select.Random.Hotel", Hotel.class);
+        query.setParameter("quantity", quantity);
+        return query.getResultList();
+    }
+
     public List<Hotel> search(String key){
         if (key.isBlank())
             return List.of();
@@ -32,6 +40,7 @@ public class HotelRepository {
             return List.of();
         }
     }
+
     public List<Hotel> getAll() {
         TypedQuery<Hotel> query = em.createNamedQuery("select.All.Hotel", Hotel.class);
         return query.getResultList();

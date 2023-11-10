@@ -30,6 +30,11 @@ public class HotelResource {
         HttpStatus.OK);
     }
 
+    @GetMapping(value="/random")
+    public ResponseEntity<List<SimpleHotelDto>> getRandom(@RequestParam(value="quantity") int quantity){
+        return new ResponseEntity<List<SimpleHotelDto>>(hotelService.getRandom(quantity),
+                HttpStatus.OK);
+    }
 
 
 }

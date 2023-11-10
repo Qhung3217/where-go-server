@@ -16,7 +16,9 @@ import lombok.Setter;
 @NamedQueries({
 @NamedQuery(name="select.All.Hotel", query="SELECT h FROM Hotel h"),
         @NamedQuery(name="search.Hotel", query="SELECT h FROM Hotel h WHERE lower(h.name) LIKE " +
-                "lower(:keyword)")
+                "lower(:keyword)"),
+        @NamedQuery(name="select.Random.Hotel", query="SELECT h FROM Hotel h ORDER BY rand() " +
+                "LIMIT :quantity")
 })
 public class Hotel {
     @Id

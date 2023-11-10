@@ -11,4 +11,5 @@ public interface HotelService {
     HotelFilterInforDto getHotelFilterInfor();
     List<SimpleHotelDto> getAll();
     List<SimpleHotelDto> search(String key);
+    List<SimpleHotelDto> getRandom(int quantity);
 }

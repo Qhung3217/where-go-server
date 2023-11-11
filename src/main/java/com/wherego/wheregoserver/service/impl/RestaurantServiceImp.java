@@ -32,4 +32,12 @@ public class RestaurantServiceImp implements RestaurantService {
                 .map(restaurantMapper::toSimpleRestaurantDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<SimpleRestaurantDto> search(String key) {
+        return restaurantRepository.search(key)
+                .stream()
+                .map(restaurantMapper::toSimpleRestaurantDto)
+                .collect(Collectors.toList());
+    }
 }

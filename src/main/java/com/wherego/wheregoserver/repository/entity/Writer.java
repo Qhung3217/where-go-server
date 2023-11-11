@@ -1,4 +1,4 @@
-package com.wherego.wheregoserver.respository.entity;
+package com.wherego.wheregoserver.repository.entity;
 
 import java.sql.Date;
 import java.util.List;

@@ -4,7 +4,7 @@ import com.wherego.wheregoserver.dto.hotel.DetailHotelDto;
 import com.wherego.wheregoserver.dto.hotel.HotelFilterInforDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
 import com.wherego.wheregoserver.mapper.HotelMapper;
-import com.wherego.wheregoserver.respository.HotelRepository;
+import com.wherego.wheregoserver.repository.HotelRepository;
 import com.wherego.wheregoserver.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
 
-package com.wherego.wheregoserver.respository;
+package com.wherego.wheregoserver.repository;
 
 import com.wherego.wheregoserver.exception.ResourceNotFoundException;
-import com.wherego.wheregoserver.respository.entity.Hotel;
-import com.wherego.wheregoserver.respository.entity.PropertyAmenity;
-import com.wherego.wheregoserver.respository.entity.RoomFeature;
-import com.wherego.wheregoserver.respository.entity.RoomType;
+import com.wherego.wheregoserver.repository.entity.Hotel;
+import com.wherego.wheregoserver.repository.entity.PropertyAmenity;
+import com.wherego.wheregoserver.repository.entity.RoomFeature;
+import com.wherego.wheregoserver.repository.entity.RoomType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;

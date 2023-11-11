@@ -1,8 +1,7 @@
-package com.wherego.wheregoserver.respository.entity;
+package com.wherego.wheregoserver.repository.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,19 +18,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "place_gallery")
-public class PlaceGallery {
+@Table(name = "hotel_review")
+public class HotelReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "place_gallery_id")
+    @Column(name = "hotel_review_id")
     private Long id;
 
-    @Column(name = "place_gallery_image", nullable = false, length=512)
-    private String image;
+    @Column(name = "hotel_review_comment", nullable = false, length=1000)
+    private String comment;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "place_id", nullable = false)
-    private Place place;
+    @Column(name = "hotel_review_rating", nullable = false)
+    private int rating;
 
+    @ManyToOne()
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
+
+    @ManyToOne()
+    @JoinColumn(name = "traveler_id", nullable = false)
+    private Traveler traveler;
 }

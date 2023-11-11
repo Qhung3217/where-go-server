@@ -2,7 +2,7 @@ package com.wherego.wheregoserver.mapper;
 
 import com.wherego.wheregoserver.dto.hotel.DetailHotelDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
-import com.wherego.wheregoserver.respository.entity.*;
+import com.wherego.wheregoserver.repository.entity.*;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
 

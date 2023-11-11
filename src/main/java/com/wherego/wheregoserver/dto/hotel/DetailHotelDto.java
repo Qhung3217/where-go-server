@@ -1,6 +1,5 @@
 package com.wherego.wheregoserver.dto.hotel;
 
-import com.wherego.wheregoserver.respository.entity.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

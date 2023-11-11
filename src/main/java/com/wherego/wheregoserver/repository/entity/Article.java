@@ -1,4 +1,4 @@
-package com.wherego.wheregoserver.respository.entity;
+package com.wherego.wheregoserver.repository.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

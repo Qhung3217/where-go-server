@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.boundary;
 
+import com.wherego.wheregoserver.dto.restaurant.RestaurantFiterInforDto;
 import com.wherego.wheregoserver.dto.restaurant.SimpleRestaurantDto;
 import com.wherego.wheregoserver.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,10 @@ public class RestaurantResource {
     public ResponseEntity<List<SimpleRestaurantDto>> getRandom(@RequestParam(name = "quantity",
             required = false) Integer quantity) {
         return new ResponseEntity<List<SimpleRestaurantDto>>(restaurantService.getRandom(quantity), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/filter-infor")
+    public ResponseEntity<RestaurantFiterInforDto> getFilterInfor(){
+        return new ResponseEntity<RestaurantFiterInforDto>(restaurantService.getFilterInfor(), HttpStatus.OK);
     }
 }

@@ -2,13 +2,8 @@ package com.wherego.wheregoserver.repository.entity;
 
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "meal")
+@NamedQueries({
+        @NamedQuery(name = "select.All.Meal", query = "SELECT m FROM Meal m")
+})
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +31,7 @@ public class Meal {
     }
 
     @ManyToMany(mappedBy = "meals")
+    @JsonIgnore
     private Set<Restaurant> restaurant;
 
 }

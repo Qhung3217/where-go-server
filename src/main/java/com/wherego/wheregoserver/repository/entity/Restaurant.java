@@ -3,19 +3,7 @@ package com.wherego.wheregoserver.repository.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "restaurant")
+@NamedQueries({
+        @NamedQuery(name = "select.All.Restaurant", query = "SELECT r FROM Restaurant r"),
+})
 public class Restaurant {
 
     @Id
@@ -38,7 +29,7 @@ public class Restaurant {
     @Column(name = "restaurant_address", nullable = false)
     private String address;
 
-    @Column(name = "restaurant_thumbnail", nullable = false, length=512)
+    @Column(name = "restaurant_thumbnail", nullable = false, length = 512)
     private String thumbnail;
 
     @ManyToOne(fetch = FetchType.EAGER)

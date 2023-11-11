@@ -1,0 +1,37 @@
+package com.wherego.wheregoserver.exception;
+
+
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@Getter
+@Setter
+@ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+public class MissingParamsException extends RuntimeException{
+    private static final long serialVersion = 1L;
+    private String[] params;
+
+    public MissingParamsException( String[] params) {
+        super(convertParamsToMessage(params));
+        this.params = params;
+    }
+
+
+    private static String convertParamsToMessage(String[] params) {
+        StringBuilder message= new StringBuilder();
+        message.append("Missing required params: ");
+        for (int i=0; i < params.length; i++) {
+            message.append(params[i]);
+            if (i < params.length -1)
+                message.append(", ");;
+
+        }
+        return message.toString();
+    }
+    public HttpStatus getStatus() {
+        return HttpStatus.UNPROCESSABLE_ENTITY;
+    }
+}

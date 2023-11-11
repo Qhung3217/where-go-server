@@ -1,4 +1,4 @@
-package com.wherego.wheregoserver.dto;
+package com.wherego.wheregoserver.dto.hotel;
 
 import com.wherego.wheregoserver.respository.entity.PropertyAmenity;
 import com.wherego.wheregoserver.respository.entity.RoomFeature;

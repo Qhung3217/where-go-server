@@ -14,7 +14,11 @@ import lombok.Setter;
 @Entity
 @Table(name = "hotel")
 @NamedQueries({
-@NamedQuery(name="select.All.Hotel", query="SELECT h FROM Hotel h")
+@NamedQuery(name="select.All.Hotel", query="SELECT h FROM Hotel h"),
+        @NamedQuery(name="search.Hotel", query="SELECT h FROM Hotel h WHERE lower(h.name) LIKE " +
+                "lower(:keyword)"),
+        @NamedQuery(name="select.Random.Hotel", query="SELECT h FROM Hotel h ORDER BY rand() " +
+                "LIMIT :quantity"),
 })
 public class Hotel {
     @Id
@@ -31,10 +35,10 @@ public class Hotel {
     @Column(name = "hotel_class", nullable = false)
     private String hotelClass;
 
-    @Column(name = "hotel_description", nullable = false)
+    @Column(name = "hotel_description", nullable = false, length= 800)
     private String description;
 
-    @Column(name = "hotel_thumbnail", nullable = false)
+    @Column(name = "hotel_thumbnail", nullable = false, length=512)
     private String thumbnail;
 
     @Column(name = "hotel_price", nullable = false)
@@ -73,5 +77,8 @@ public class Hotel {
 
     @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
     private Set<HotelReview> reviews;
+
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL)
+    private Set<Booking> bookings;
 
 }

@@ -48,4 +48,8 @@ public class District {
     @OneToMany(mappedBy = "district", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Place> places;
 
+    @OneToMany(mappedBy = "district", fetch = FetchType.LAZY, cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private Set<Hotel> hotels;
+
 }

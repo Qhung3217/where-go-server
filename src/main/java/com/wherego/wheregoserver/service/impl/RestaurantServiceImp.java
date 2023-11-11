@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.service.impl;
 
+import com.wherego.wheregoserver.dto.restaurant.RestaurantFiterInforDto;
 import com.wherego.wheregoserver.dto.restaurant.SimpleRestaurantDto;
 import com.wherego.wheregoserver.mapper.RestaurantMapper;
 import com.wherego.wheregoserver.repository.RestaurantRepository;
@@ -39,5 +40,11 @@ public class RestaurantServiceImp implements RestaurantService {
                 .stream()
                 .map(restaurantMapper::toSimpleRestaurantDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public RestaurantFiterInforDto getFilterInfor() {
+        return new RestaurantFiterInforDto(restaurantRepository.getCuisines(),
+                restaurantRepository.getFeatures(), restaurantRepository.getMeals());
     }
 }

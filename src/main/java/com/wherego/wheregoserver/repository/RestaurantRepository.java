@@ -1,5 +1,8 @@
 package com.wherego.wheregoserver.repository;
 
+import com.wherego.wheregoserver.repository.entity.Cuisine;
+import com.wherego.wheregoserver.repository.entity.Feature;
+import com.wherego.wheregoserver.repository.entity.Meal;
 import com.wherego.wheregoserver.repository.entity.Restaurant;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -41,5 +44,18 @@ public class RestaurantRepository {
         }catch(NoResultException e){
             return List.of();
         }
+    }
+
+    public List<Cuisine> getCuisines(){
+        TypedQuery<Cuisine> query = em.createNamedQuery("select.All.Cuisine", Cuisine.class);
+        return query.getResultList();
+    }
+    public List<Meal> getMeals(){
+        TypedQuery<Meal> query = em.createNamedQuery("select.All.Meal", Meal.class);
+        return query.getResultList();
+    }
+    public List<Feature> getFeatures(){
+        TypedQuery<Feature> query = em.createNamedQuery("select.All.Feature", Feature.class);
+        return query.getResultList();
     }
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface RestaurantService {
     List<SimpleRestaurantDto> getAll();
     List<SimpleRestaurantDto> getRandom(Integer quantity);
+    List<SimpleRestaurantDto> search(String key);
 }

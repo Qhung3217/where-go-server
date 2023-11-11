@@ -7,19 +7,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/restaurant")
+@RequestMapping(value = "/restaurant")
 public class RestaurantResource {
     @Autowired
     private RestaurantService restaurantService;
 
     @GetMapping
-    public ResponseEntity<List<SimpleRestaurantDto>> getAll(){
+    public ResponseEntity<List<SimpleRestaurantDto>> getAll() {
         return new ResponseEntity<List<SimpleRestaurantDto>>(restaurantService.getAll(),
                 HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/random")
+    public ResponseEntity<List<SimpleRestaurantDto>> getRandom(@RequestParam(name = "quantity",
+            required = false) Integer quantity) {
+        return new ResponseEntity<List<SimpleRestaurantDto>>(restaurantService.getRandom(quantity), HttpStatus.OK);
     }
 }

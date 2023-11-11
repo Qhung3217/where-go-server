@@ -24,4 +24,12 @@ public class RestaurantServiceImp implements RestaurantService {
                 .map(restaurantMapper::toSimpleRestaurantDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<SimpleRestaurantDto> getRandom(Integer quantity) {
+        return restaurantRepository.getRandom(quantity)
+                .stream()
+                .map(restaurantMapper::toSimpleRestaurantDto)
+                .collect(Collectors.toList());
+    }
 }

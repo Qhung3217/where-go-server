@@ -20,4 +20,12 @@ public class RestaurantRepository {
         return query.getResultList();
     }
 
+    public List<Restaurant> getRandom(Integer quantity){
+        if (quantity == null)
+            quantity = 20;
+        TypedQuery<Restaurant> query = em.createNamedQuery("select.Random.Restaurant",
+                Restaurant.class);
+        query.setParameter("quantity", quantity);
+        return query.getResultList();
+    }
 }

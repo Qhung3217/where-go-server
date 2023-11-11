@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface RestaurantService {
     List<SimpleRestaurantDto> getAll();
+    List<SimpleRestaurantDto> getRandom(Integer quantity);
 }

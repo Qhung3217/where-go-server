@@ -15,6 +15,8 @@ import lombok.Setter;
 @Table(name = "restaurant")
 @NamedQueries({
         @NamedQuery(name = "select.All.Restaurant", query = "SELECT r FROM Restaurant r"),
+        @NamedQuery(name = "select.Random.Restaurant", query = "SELECT r FROM Restaurant r ORDER " +
+                "BY rand() LIMIT :quantity"),
 })
 public class Restaurant {
 

@@ -27,8 +27,8 @@ public class HotelRepository {
         return result;
     }
 
-    public List<Hotel> getRandom(int quantity){
-        if (quantity == 0)
+    public List<Hotel> getRandom(Integer quantity){
+        if (quantity == null)
             quantity = 20;
         TypedQuery<Hotel> query = em.createNamedQuery("select.Random.Hotel", Hotel.class);
         query.setParameter("quantity", quantity);

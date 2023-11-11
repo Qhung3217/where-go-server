@@ -30,7 +30,8 @@ public class HotelResource {
     }
 
     @GetMapping(value = "/random")
-    public ResponseEntity<List<SimpleHotelDto>> getRandom(@RequestParam(value = "quantity") int quantity) {
+    public ResponseEntity<List<SimpleHotelDto>> getRandom(@RequestParam(value = "quantity",
+            required = false) Integer quantity) {
         return new ResponseEntity<List<SimpleHotelDto>>(hotelService.getRandom(quantity),
                 HttpStatus.OK);
     }

@@ -45,7 +45,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<SimpleHotelDto> getRandom(int quantity) {
+    public List<SimpleHotelDto> getRandom(Integer quantity) {
         return hotelRepository.getRandom(quantity)
                 .stream()
                 .map(hotelMapper::toSimpleHotelDto)

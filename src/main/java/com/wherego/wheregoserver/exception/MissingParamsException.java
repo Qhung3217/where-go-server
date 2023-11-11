@@ -22,8 +22,12 @@ public class MissingParamsException extends RuntimeException{
 
     private static String convertParamsToMessage(String[] params) {
         StringBuilder message= new StringBuilder();
-        for (String param : params) {
-            message.append("Missing required param: ").append(param).append("\n");
+        message.append("Missing required params: ");
+        for (int i=0; i < params.length; i++) {
+            message.append(params[i]);
+            if (i < params.length -1)
+                message.append(", ");;
+
         }
         return message.toString();
     }

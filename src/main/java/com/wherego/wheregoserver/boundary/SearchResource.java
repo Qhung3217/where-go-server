@@ -23,8 +23,8 @@ public class SearchResource {
 
 
     @GetMapping
-    public <T>T search(@RequestParam(value = "category") String category,
-                       @RequestParam(value = "keyword") String keyword) {
+    public <T>T search(@RequestParam(value = "category", required = false) String category,
+                       @RequestParam(value = "keyword", required = false) String keyword) {
 
         if (category == null && keyword == null) {
             String[] strings = new String[]{"category", "keyword"};

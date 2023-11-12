@@ -3,6 +3,7 @@ package com.wherego.wheregoserver.mapper;
 import com.wherego.wheregoserver.dto.hotel.DetailHotelDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
 import com.wherego.wheregoserver.repository.entity.*;
+import com.wherego.wheregoserver.utils.MapperUtils;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
 
@@ -35,12 +36,7 @@ public interface HotelMapper {
 
     @Named("getAverageRating")
     public static Float getAverageRating(Set<HotelReview> hotelReviews){
-        List<Integer> ratings = new ArrayList<>();
-        for(HotelReview review : hotelReviews){
-            ratings.add(review.getRating());
-        }
-        OptionalDouble average = ratings.stream().mapToDouble(rating -> rating).average();
-        return (float) average.orElse(0);
+        return MapperUtils.arrayToFloatAverage(hotelReviews, "getRating");
     }
 
     @Named("getTotalRating")
@@ -50,37 +46,21 @@ public interface HotelMapper {
 
     @Named("getRoomFeatureNames")
     public static List<String> getRoomFeatureName(Set<RoomFeature> roomFeatures){
-        List<String> roomFeatureNames = new ArrayList<>();
-        for (RoomFeature roomFeature : roomFeatures){
-            roomFeatureNames.add(roomFeature.getFeature());
-        }
-        return roomFeatureNames;
+        return MapperUtils.arrayToListString(roomFeatures, "getFeature");
     }
 
     @Named("getRoomTypeNames")
     public static List<String> getRoomTypeNames(Set<RoomType> roomTypes){
-        List<String> roomTypeNames = new ArrayList<>();
-        for (RoomType roomType : roomTypes){
-            roomTypeNames.add(roomType.getType());
-        }
-        return roomTypeNames;
+        return MapperUtils.arrayToListString(roomTypes, "getType");
     }
 
     @Named("getPropertyAmenityNames")
     public static List<String> getPropertyAmenityNames(Set<PropertyAmenity> propertyAmenities){
-        List<String> propertyAmenityNames = new ArrayList<>();
-        for(PropertyAmenity propertyAmenity : propertyAmenities){
-            propertyAmenityNames.add(propertyAmenity.getName());
-        }
-        return propertyAmenityNames;
+        return MapperUtils.arrayToListString(propertyAmenities, "getName");
     }
 
     @Named("getGalleries")
     public static List<String> getGalleries(Set<HotelGallery> hotelGalleries){
-        List<String> galleries = new ArrayList<>();
-        for (HotelGallery gallery : hotelGalleries){
-            galleries.add(gallery.getImage());
-        }
-        return galleries;
+        return MapperUtils.arrayToListString(hotelGalleries, "getImage");
     }
 }

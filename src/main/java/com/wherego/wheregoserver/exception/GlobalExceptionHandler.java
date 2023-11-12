@@ -19,4 +19,9 @@ public class GlobalExceptionHandler {
         ResponseMessageDto msg = new ResponseMessageDto(ex.getStatus(), ex.getMessage());
         return new ResponseEntity<>(msg, msg.getStatus());
     }
+    @ExceptionHandler(ResourceInvalidException.class)
+    public ResponseEntity<ResponseMessageDto> handleResourceInvalidException(ResourceInvalidException ex) {
+        ResponseMessageDto msg = new ResponseMessageDto(ex.getStatus(), ex.getMessage());
+        return new ResponseEntity<>(msg, msg.getStatus());
+    }
 }

@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,9 +34,11 @@ public class RestaurantReview {
 
     @ManyToOne()
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToOne()
     @JoinColumn(name = "traveler_id", nullable = false)
+    @JsonIgnore
     private Traveler traveler;
 }

@@ -1,8 +1,10 @@
 package com.wherego.wheregoserver.boundary;
 
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
+import com.wherego.wheregoserver.dto.restaurant.SimpleRestaurantDto;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.service.HotelService;
+import com.wherego.wheregoserver.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class SearchResource {
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
 
     @GetMapping
@@ -41,6 +46,7 @@ public class SearchResource {
             case "hotel":
                 return (T) searchHotel(keyword);
             case "restaurant":
+                return (T) searchRestaurant(keyword);
             case "place":
             default: throw new IllegalArgumentException("Invalid category: " + category);
         }
@@ -49,7 +55,11 @@ public class SearchResource {
     private ResponseEntity<List<SimpleHotelDto>> searchHotel(String keyword) {
         return new ResponseEntity<List<SimpleHotelDto>>(hotelService.search(keyword),
                 HttpStatus.OK);
+    }
 
+    private ResponseEntity<List<SimpleRestaurantDto>> searchRestaurant(String keyword){
+        return new ResponseEntity<List<SimpleRestaurantDto>>(restaurantService.search(keyword),
+                HttpStatus.OK);
     }
 
 }

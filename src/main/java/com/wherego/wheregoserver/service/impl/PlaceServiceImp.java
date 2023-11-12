@@ -39,5 +39,13 @@ public class PlaceServiceImp implements PlaceService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<SimplePlaceDto> search(String keyword) {
+        return placeRepository.search(keyword)
+                .stream()
+                .map(placeMapper::toSimplePlaceDto)
+                .collect(Collectors.toList());
+    }
+
 
 }

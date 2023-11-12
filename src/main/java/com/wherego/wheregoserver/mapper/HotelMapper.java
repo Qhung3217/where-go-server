@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.mapper;
 
+import com.wherego.wheregoserver.dto.ReviewDetailDto;
 import com.wherego.wheregoserver.dto.hotel.DetailHotelDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
 import com.wherego.wheregoserver.repository.entity.*;
@@ -24,7 +25,7 @@ public interface HotelMapper {
     @Mapping(target="totalRating", source="reviews", qualifiedByName="getTotalRating")
     SimpleHotelDto toSimpleHotelDto(Hotel hotel);
 
-    @Mapping(target="district", source="district.name")
+    @Mapping(target="districtName", source="district.name")
     @Mapping(target="roomFeatures", source="roomFeatures", qualifiedByName = "getRoomFeatureNames")
     @Mapping(target="roomTypes", source="roomTypes", qualifiedByName = "getRoomTypeNames")
     @Mapping(target="propertyAmenities", source="propertyAmenities", qualifiedByName=
@@ -32,6 +33,7 @@ public interface HotelMapper {
     @Mapping(target="averageRating", source="reviews", qualifiedByName="getAverageRating")
     @Mapping(target="totalRating", source="reviews", qualifiedByName="getTotalRating")
     @Mapping(target="galleries", source="galleries", qualifiedByName="getGalleries")
+    @Mapping(target="reviews", source="reviews", qualifiedByName="getReviews")
     DetailHotelDto toDetailHotelDto(Hotel hotel);
 
     @Named("getAverageRating")
@@ -62,5 +64,10 @@ public interface HotelMapper {
     @Named("getGalleries")
     public static List<String> getGalleries(Set<HotelGallery> hotelGalleries){
         return MapperUtils.arrayToListString(hotelGalleries, "getImage");
+    }
+
+    @Named("getReviews")
+    public static Set<ReviewDetailDto> getReviews(Set<HotelReview> reviews){
+        return MapperUtils.objectReviewToReviewDetail(reviews);
     }
 }

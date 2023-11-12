@@ -2,13 +2,8 @@ package com.wherego.wheregoserver.repository.entity;
 
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "place_type")
+@NamedQuery(name="select.All.PlaceType", query="SELECT pt FROM PlaceType pt")
 public class PlaceType {
 
     @Id
@@ -34,6 +30,7 @@ public class PlaceType {
     }
 
     @ManyToMany(mappedBy = "types")
+    @JsonIgnore
     private Set<Place> places;
 
 }

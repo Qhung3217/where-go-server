@@ -20,8 +20,18 @@ public class PlaceRepository {
         return query.getResultList();
     }
 
+    public List<Place> getRandom(Integer quantity){
+        if (quantity == null)
+                quantity = 20;
+        TypedQuery<Place> query = em.createNamedQuery("select.Random.Place", Place.class);
+        query.setParameter("quantity", quantity);
+        return query.getResultList();
+    }
+
     public List<PlaceType> getPlaceTypes(){
         TypedQuery<PlaceType> query = em.createNamedQuery("select.All.PlaceType", PlaceType.class);
         return query.getResultList();
     }
+
+
 }

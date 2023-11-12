@@ -10,4 +10,5 @@ import java.util.List;
 public interface PlaceService {
     List<SimplePlaceDto> getAll();
     PlaceFilterInforDto getFilterInfor();
+    List<SimplePlaceDto> getRandom(Integer quantity);
 }

@@ -31,5 +31,13 @@ public class PlaceServiceImp implements PlaceService {
         return new PlaceFilterInforDto(placeRepository.getPlaceTypes());
     }
 
+    @Override
+    public List<SimplePlaceDto> getRandom(Integer quantity) {
+        return placeRepository.getRandom(quantity)
+                .stream()
+                .map(placeMapper::toSimplePlaceDto)
+                .collect(Collectors.toList());
+    }
+
 
 }

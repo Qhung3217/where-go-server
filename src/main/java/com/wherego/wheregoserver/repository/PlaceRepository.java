@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.repository;
 
+import com.wherego.wheregoserver.exception.ResourceNotFoundException;
 import com.wherego.wheregoserver.repository.entity.Place;
 import com.wherego.wheregoserver.repository.entity.PlaceType;
 import jakarta.persistence.EntityManager;
@@ -41,6 +42,13 @@ public class PlaceRepository {
             return List.of();
         }
 
+    }
+
+    public Place getById(Long id){
+        Place result = em.find(Place.class,id);
+        if (result == null)
+            throw new ResourceNotFoundException("Place", "id", id);
+        return result;
     }
 
     public List<PlaceType> getPlaceTypes() {

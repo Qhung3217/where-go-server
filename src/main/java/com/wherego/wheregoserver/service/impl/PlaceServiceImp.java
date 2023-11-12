@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.service.impl;
 
+import com.wherego.wheregoserver.dto.place.DetailPlaceDto;
 import com.wherego.wheregoserver.dto.place.PlaceFilterInforDto;
 import com.wherego.wheregoserver.dto.place.SimplePlaceDto;
 import com.wherego.wheregoserver.mapper.PlaceMapper;
@@ -45,6 +46,11 @@ public class PlaceServiceImp implements PlaceService {
                 .stream()
                 .map(placeMapper::toSimplePlaceDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DetailPlaceDto getById(Long id) {
+        return placeMapper.toDetailPlaceDto(placeRepository.getById(id));
     }
 
 

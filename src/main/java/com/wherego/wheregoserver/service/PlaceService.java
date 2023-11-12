@@ -11,4 +11,5 @@ public interface PlaceService {
     List<SimplePlaceDto> getAll();
     PlaceFilterInforDto getFilterInfor();
     List<SimplePlaceDto> getRandom(Integer quantity);
+    List<SimplePlaceDto> search(String keyword);
 }

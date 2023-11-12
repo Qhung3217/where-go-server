@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,5 +30,6 @@ public class RestaurantGallery {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 }

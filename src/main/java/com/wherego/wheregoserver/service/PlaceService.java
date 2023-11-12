@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.service;
 
+import com.wherego.wheregoserver.dto.place.DetailPlaceDto;
 import com.wherego.wheregoserver.dto.place.PlaceFilterInforDto;
 import com.wherego.wheregoserver.dto.place.SimplePlaceDto;
 import org.springframework.stereotype.Service;
@@ -12,4 +13,5 @@ public interface PlaceService {
     PlaceFilterInforDto getFilterInfor();
     List<SimplePlaceDto> getRandom(Integer quantity);
     List<SimplePlaceDto> search(String keyword);
+    DetailPlaceDto getById(Long id);
 }

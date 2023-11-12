@@ -3,6 +3,7 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.place.PlaceFilterInforDto;
 import com.wherego.wheregoserver.dto.place.SimplePlaceDto;
 import com.wherego.wheregoserver.service.PlaceService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,10 @@ public class PlaceResource {
     @GetMapping(value="filter-infor")
     public ResponseEntity<PlaceFilterInforDto> getFilterInfor(){
         return new ResponseEntity<PlaceFilterInforDto>(placeService.getFilterInfor(), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/random")
+    public ResponseEntity<List<SimplePlaceDto>> getRandom(@PathParam("quantity") Integer quantity){
+        return new ResponseEntity<List<SimplePlaceDto>>(placeService.getRandom(quantity), HttpStatus.OK);
     }
 }

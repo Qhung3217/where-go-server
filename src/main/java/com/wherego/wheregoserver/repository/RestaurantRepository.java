@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.repository;
 
+import com.wherego.wheregoserver.exception.ResourceNotFoundException;
 import com.wherego.wheregoserver.repository.entity.Cuisine;
 import com.wherego.wheregoserver.repository.entity.Feature;
 import com.wherego.wheregoserver.repository.entity.Meal;
@@ -17,6 +18,13 @@ public class RestaurantRepository {
 
     @PersistenceContext
     private EntityManager em;
+
+    public Restaurant getById(Long id){
+        Restaurant result = em.find(Restaurant.class, id);
+        if(result == null)
+            throw new ResourceNotFoundException("Restaurant", "id", id);
+        return result;
+    }
 
     public List<Restaurant> getAll(){
         TypedQuery<Restaurant> query = em.createNamedQuery("select.All.Restaurant",

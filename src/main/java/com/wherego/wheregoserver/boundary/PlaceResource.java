@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.boundary;
 
+import com.wherego.wheregoserver.dto.place.PlaceFilterInforDto;
 import com.wherego.wheregoserver.dto.place.SimplePlaceDto;
 import com.wherego.wheregoserver.service.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,10 @@ public class PlaceResource {
     @GetMapping
     public ResponseEntity<List<SimplePlaceDto>> getAll(){
         return new ResponseEntity<List<SimplePlaceDto>>(placeService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(value="filter-infor")
+    public ResponseEntity<PlaceFilterInforDto> getFilterInfor(){
+        return new ResponseEntity<PlaceFilterInforDto>(placeService.getFilterInfor(), HttpStatus.OK);
     }
 }

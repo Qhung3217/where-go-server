@@ -53,5 +53,14 @@ public class AuthenticateResource {
         return new ResponseEntity<ResponseMessageDto>(writerService.checkUsernameExist(username),
                 HttpStatus.OK);
     }
+    @PostMapping(value ="/writer/check-email-exist")
+    public ResponseEntity<ResponseMessageDto> checkEmailExist(@RequestBody MultiValueMap<String,
+            String> payload){
+        String email = payload.getFirst("email");
+        if (email == null)
+            throw new InvalidFieldNameException("Missing field email or value is null");
+        return new ResponseEntity<ResponseMessageDto>(writerService.checkEmailExist(email),
+                HttpStatus.OK);
+    }
 
 }

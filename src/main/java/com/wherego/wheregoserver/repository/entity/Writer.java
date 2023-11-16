@@ -16,9 +16,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @Entity
 @Table(name = "writer")
-@NamedQuery(name="select.Username.Writer", query="SELECT w FROM Writer w WHERE w.username = " +
-        ":username")
-public class Writer{
+@NamedQueries({
+        @NamedQuery(name = "select.Username.Writer", query = "SELECT w FROM Writer w WHERE w.username = " +
+                ":username"),
+        @NamedQuery(name = "select.Email.Writer", query = "SELECT w FROM Writer w WHERE w.email = " +
+                ":email"),
+})
+public class Writer {
 
     @Id
     @Column(name = "writer_email", nullable = false)
@@ -27,10 +31,10 @@ public class Writer{
     @Column(name = "writer_name", nullable = false)
     private String name;
 
-    @Column(name = "writer_tels", nullable = false, length=10)
+    @Column(name = "writer_tels", nullable = false, length = 10)
     private String tels;
 
-    @Column(name = "writer_avatar", nullable = true, length=512)
+    @Column(name = "writer_avatar", nullable = true, length = 512)
     private String avatar;
 
     @Column(name = "writer_dob", nullable = false)

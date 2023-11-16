@@ -1,9 +1,8 @@
 package com.wherego.wheregoserver.service;
 
-import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
-import com.wherego.wheregoserver.dto.CredentialDto;
-import com.wherego.wheregoserver.dto.ResponseMessageDto;
-import com.wherego.wheregoserver.dto.WriterRegisterDto;
+import com.wherego.wheregoserver.dto.*;
+import com.wherego.wheregoserver.dto.writer.WriterDto;
+import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,6 @@ public interface WriterService {
     ResponseMessageDto register(WriterRegisterDto register);
     ResponseMessageDto checkUsernameExist(String username);
     ResponseMessageDto checkEmailExist(String email);
-    Writer
+   WriterDto getDetail(String token);
 }
 

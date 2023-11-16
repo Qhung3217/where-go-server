@@ -1,9 +1,8 @@
 package com.wherego.wheregoserver.service.impl;
 
-import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
-import com.wherego.wheregoserver.dto.CredentialDto;
-import com.wherego.wheregoserver.dto.ResponseMessageDto;
-import com.wherego.wheregoserver.dto.WriterRegisterDto;
+import com.wherego.wheregoserver.dto.*;
+import com.wherego.wheregoserver.dto.writer.WriterDto;
+import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.WriterMapper;
@@ -145,4 +144,12 @@ public class WriterServiceImpl implements WriterService {
                     .build();
         }
     }
+
+    @Override
+    public WriterDto getDetail(String token) {
+        String email = jwtService.extractUsername(token);
+        Writer writer = writerRepository.getByEmail(email);
+        return writerMapper.toWriterDto(writer);
+    }
+
 }

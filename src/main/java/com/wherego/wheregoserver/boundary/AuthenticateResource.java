@@ -3,7 +3,7 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.CredentialDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
-import com.wherego.wheregoserver.dto.WriterRegisterDto;
+import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;

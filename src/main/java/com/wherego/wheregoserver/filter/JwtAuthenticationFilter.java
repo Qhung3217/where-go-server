@@ -1,6 +1,7 @@
 package com.wherego.wheregoserver.filter;
 
 import com.wherego.wheregoserver.constant.UserRole;
+import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.WriterService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -77,11 +78,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request,response);
-        } catch (SignatureException | ExpiredJwtException  e) {
-//            if (e instanceof UserNotFoundException)
-//                 exceptionResolver.resolveException(request,response,null,
-//                        new BadCredentialsException("Invalid credentials"));
-//            else
+        } catch (Exception e) {
+            if (e instanceof UserNotFoundException)
+                 exceptionResolver.resolveException(request,response,null,
+                        new BadCredentialsException("Invalid credentials"));
+            else
                 exceptionResolver.resolveException(request,response,null,e);
         }
     }

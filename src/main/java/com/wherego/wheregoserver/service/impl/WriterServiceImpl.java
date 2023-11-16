@@ -4,6 +4,7 @@ import com.wherego.wheregoserver.dto.*;
 import com.wherego.wheregoserver.dto.writer.WriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
+import com.wherego.wheregoserver.exception.InvalidFieldValueException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.WriterMapper;
 import com.wherego.wheregoserver.repository.WriterRepository;
@@ -39,7 +40,7 @@ public class WriterServiceImpl implements WriterService {
         try {
             Writer writer = writerRepository.getByEmail(credential.getEmail());
             if (writer != null && passwordEncoder.matches(credential.getPassword(), writer.getPassword())) {
-                User user = new User(writer.getEmail(), writer.getPassword(),writer.getAuthorities());
+                User user = new User(writer.getEmail(), writer.getPassword(), writer.getAuthorities());
                 String token = jwtService.generateToken(user);
                 return AuthenticateResponseDto
                         .builder()
@@ -51,8 +52,7 @@ public class WriterServiceImpl implements WriterService {
             }
         } catch (IllegalArgumentException e) {
             throw new InvalidFieldNameException();
-        }
-        catch(UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             throw new BadCredentialsException("Invalid credentials");
         }
     }
@@ -61,7 +61,7 @@ public class WriterServiceImpl implements WriterService {
     public UserDetails loadByUserEmail(String email) {
         try {
             Writer writer = writerRepository.getByEmail(email);
-           return new User(writer.getEmail(), writer.getPassword(),writer.getAuthorities());
+            return new User(writer.getEmail(), writer.getPassword(), writer.getAuthorities());
         } catch (UserNotFoundException e) {
             throw new BadCredentialsException("Invalid credentials");
         }
@@ -110,7 +110,7 @@ public class WriterServiceImpl implements WriterService {
     }
 
     @Override
-    public ResponseMessageDto checkUsernameExist( String username) {
+    public ResponseMessageDto checkUsernameExist(String username) {
         try {
             writerRepository.getByUsername(username);
             return ResponseMessageDto
@@ -151,5 +151,22 @@ public class WriterServiceImpl implements WriterService {
         Writer writer = writerRepository.getByEmail(email);
         return writerMapper.toWriterDto(writer);
     }
+
+    @Override
+    public ResponseMessageDto changePassword(String token, ChangePasswordDto password) {
+        String email = jwtService.extractUsername(token);
+        Writer writer = writerRepository.getByEmail(email);
+        if (passwordEncoder.matches( password.getCurrentPassword(),writer.getPassword())) {
+            writer.setPassword(passwordEncoder.encode(password.getNewPassword()));
+            writerRepository.update(writer);
+            return ResponseMessageDto
+                    .builder()
+                    .message("Change password successfully")
+                    .status(HttpStatus.OK)
+                    .build();
+        } else
+            throw new InvalidFieldValueException(new String[]{"currentPassword"});
+    }
+
 
 }

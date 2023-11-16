@@ -117,17 +117,33 @@ public class WriterServiceImpl implements WriterService {
             writerRepository.getByUsername(username);
             return ResponseMessageDto
                     .builder()
-                    .message("Username invalid")
+                    .message("Username already exist")
                     .status(HttpStatus.OK)
                     .build();
         } catch (UserNotFoundException e) {
             return ResponseMessageDto
                     .builder()
-                    .message("Username is valid")
+                    .message("Username not exist")
                     .status(HttpStatus.OK)
                     .build();
         }
+    }
 
-
+    @Override
+    public ResponseMessageDto checkEmailExist(String email) {
+        try {
+            writerRepository.getByEmail(email);
+            return ResponseMessageDto
+                    .builder()
+                    .message("Email already exist")
+                    .status(HttpStatus.OK)
+                    .build();
+        } catch (UserNotFoundException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Email not exist")
+                    .status(HttpStatus.OK)
+                    .build();
+        }
     }
 }

@@ -15,5 +15,6 @@ public interface WriterService {
 
     ResponseMessageDto register(WriterDto register);
     ResponseMessageDto checkUsernameExist(String username);
+    ResponseMessageDto checkEmailExist(String email);
 }
 

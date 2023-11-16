@@ -30,9 +30,11 @@ public class WriterRepository {
 
     public Writer getByEmail(String email) throws UserNotFoundException {
         try {
-            return em.find(Writer.class, email);
+            TypedQuery<Writer> query = em.createNamedQuery("select.Email.Writer", Writer.class);
+            query.setParameter("email", email);
+            return query.getSingleResult();
         } catch (NoResultException e) {
-            throw new UserNotFoundException("Writer");
+            throw new UserNotFoundException("User");
         }
     }
 

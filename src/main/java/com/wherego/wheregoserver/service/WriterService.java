@@ -13,8 +13,12 @@ public interface WriterService {
     UserDetails loadByUserEmail(String email);
 
     ResponseMessageDto register(WriterRegisterDto register);
+
     ResponseMessageDto checkUsernameExist(String username);
+
     ResponseMessageDto checkEmailExist(String email);
-   WriterDto getDetail(String token);
+
+    WriterDto getDetail(String token);
+    ResponseMessageDto changePassword(String token, ChangePasswordDto password);
 }
 

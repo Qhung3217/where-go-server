@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Setter
 @NoArgsConstructor
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException{
+public class UserNotFoundException extends RuntimeException implements BaseException{
     private String userRole;
 
     public UserNotFoundException( String userRole) {
@@ -22,6 +22,4 @@ public class UserNotFoundException extends RuntimeException{
     public HttpStatus getStatus() {
         return HttpStatus.NOT_FOUND;
     }
-
-
 }

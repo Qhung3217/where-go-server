@@ -3,7 +3,7 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.CredentialDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
-import com.wherego.wheregoserver.dto.WriterDto;
+import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;
@@ -41,7 +41,7 @@ public class AuthenticateResource {
 
     @PostMapping(value ="/writer/register")
     @Transactional
-    public ResponseEntity<ResponseMessageDto> register(@RequestBody WriterDto register){
+    public ResponseEntity<ResponseMessageDto> register(@RequestBody WriterRegisterDto register){
         return new ResponseEntity<ResponseMessageDto>(writerService.register(register),
                 HttpStatus.CREATED);
     }

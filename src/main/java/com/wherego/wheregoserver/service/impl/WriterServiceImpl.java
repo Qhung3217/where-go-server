@@ -3,7 +3,7 @@ package com.wherego.wheregoserver.service.impl;
 import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.CredentialDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
-import com.wherego.wheregoserver.dto.WriterDto;
+import com.wherego.wheregoserver.dto.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.WriterMapper;
@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -71,7 +70,7 @@ public class WriterServiceImpl implements WriterService {
     }
 
     @Override
-    public ResponseMessageDto register(WriterDto register) {
+    public ResponseMessageDto register(WriterRegisterDto register) {
         try {
             Writer writer = writerMapper.toWriter(register);
             writer.setPassword(passwordEncoder.encode(writer.getPassword()));

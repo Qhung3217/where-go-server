@@ -1,6 +1,6 @@
 package com.wherego.wheregoserver.mapper;
 
-import com.wherego.wheregoserver.dto.WriterDto;
+import com.wherego.wheregoserver.dto.WriterRegisterDto;
 import com.wherego.wheregoserver.repository.entity.Writer;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
@@ -11,5 +11,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface WriterMapper {
 
-    Writer toWriter(WriterDto writer);
+    Writer toWriter(WriterRegisterDto writer);
 }

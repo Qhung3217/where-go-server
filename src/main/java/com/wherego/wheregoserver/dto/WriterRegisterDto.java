@@ -11,7 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WriterDto {
+public class WriterRegisterDto {
     private String email;
     private String name;
     private String tels;

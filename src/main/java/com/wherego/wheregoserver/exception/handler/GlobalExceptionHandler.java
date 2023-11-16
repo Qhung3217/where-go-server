@@ -43,6 +43,11 @@ public class GlobalExceptionHandler extends SecurityExceptionHandler {
         ResponseMessageDto msg = new ResponseMessageDto(ex.getStatus(), ex.getMessage());
         return new ResponseEntity<>(msg, msg.getStatus());
     }
+    @ExceptionHandler(InvalidFieldValueException.class)
+    public ResponseEntity<ResponseMessageDto> handleInvalidFieldValueException(InvalidFieldValueException ex) {
+        ResponseMessageDto msg = new ResponseMessageDto(ex.getStatus(), ex.getMessage());
+        return new ResponseEntity<>(msg, msg.getStatus());
+    }
 
     //------------------------END CUSTOM EXCEPTION HANDLER------------------------
 

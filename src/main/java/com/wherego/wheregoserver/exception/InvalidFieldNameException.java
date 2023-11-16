@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Getter
 @Setter
 @ResponseStatus(value= HttpStatus.BAD_REQUEST)
-public class InvalidFieldNameException extends IllegalArgumentException{
+public class InvalidFieldNameException extends IllegalArgumentException implements BaseException{
     public InvalidFieldNameException() {
         super("Some field names are misspelled or wrong type");
     }

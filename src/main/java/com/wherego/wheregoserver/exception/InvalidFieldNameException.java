@@ -12,6 +12,9 @@ public class InvalidFieldNameException extends IllegalArgumentException{
     public InvalidFieldNameException() {
         super("Some field names are misspelled or wrong type");
     }
+    public InvalidFieldNameException(String message) {
+        super(message);
+    }
     public HttpStatus getStatus() {
         return HttpStatus.BAD_REQUEST;
     }

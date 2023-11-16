@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -108,5 +109,25 @@ public class WriterServiceImpl implements WriterService {
             }
 
         }
+    }
+
+    @Override
+    public ResponseMessageDto checkUsernameExist( String username) {
+        try {
+            writerRepository.getByUsername(username);
+            return ResponseMessageDto
+                    .builder()
+                    .message("Username invalid")
+                    .status(HttpStatus.OK)
+                    .build();
+        } catch (UserNotFoundException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Username is valid")
+                    .status(HttpStatus.OK)
+                    .build();
+        }
+
+
     }
 }

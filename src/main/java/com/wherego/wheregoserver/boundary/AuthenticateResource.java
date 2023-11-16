@@ -4,6 +4,7 @@ import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.CredentialDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.WriterDto;
+import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;
 import com.wherego.wheregoserver.service.WriterService;
@@ -12,6 +13,7 @@ import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,6 +44,14 @@ public class AuthenticateResource {
     public ResponseEntity<ResponseMessageDto> register(@RequestBody WriterDto register){
         return new ResponseEntity<ResponseMessageDto>(writerService.register(register),
                 HttpStatus.CREATED);
+    }
+    @PostMapping(value ="/writer/check-username-exist")
+    public ResponseEntity<ResponseMessageDto> checkUsernameExist(@RequestBody MultiValueMap<String,String> payload){
+        String username = payload.getFirst("username");
+        if (username == null)
+            throw new InvalidFieldNameException("Missing field username or value is null");
+        return new ResponseEntity<ResponseMessageDto>(writerService.checkUsernameExist(username),
+                HttpStatus.OK);
     }
 
 }

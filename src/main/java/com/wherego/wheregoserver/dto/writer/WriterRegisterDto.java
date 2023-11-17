@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 
@@ -15,7 +16,7 @@ public class WriterRegisterDto {
     private String email;
     private String name;
     private String tels;
-    private String avatar;
+    private MultipartFile avatarFile;
     private Date dob;
     private String username;
     private String password;

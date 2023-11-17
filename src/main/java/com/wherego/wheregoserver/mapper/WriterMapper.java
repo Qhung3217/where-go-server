@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
 @MapperConfig(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface WriterMapper {
 
-    Writer toWriter(WriterRegisterDto writer);
-    WriterRegisterDto toWriterRegisterDto(Writer writer);
+    @Mapping(target="avatar", ignore = true)
+    Writer toWriterIgnoreAvatarField(WriterRegisterDto writer);
     WriterDto toWriterDto(Writer writer);
+//    WriterRegisterDto toWriterRegisterDto(Writer writer);
 
 }

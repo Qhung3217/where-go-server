@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.service.impl;
 
+import com.wherego.wheregoserver.constant.FileConstant;
 import com.wherego.wheregoserver.dto.*;
 import com.wherego.wheregoserver.dto.writer.WriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
@@ -11,6 +12,7 @@ import com.wherego.wheregoserver.repository.WriterRepository;
 import com.wherego.wheregoserver.repository.entity.Writer;
 import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.WriterService;
+import com.wherego.wheregoserver.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -71,8 +73,13 @@ public class WriterServiceImpl implements WriterService {
     @Override
     public ResponseMessageDto register(WriterRegisterDto register) {
         try {
-            Writer writer = writerMapper.toWriter(register);
+            Writer writer = writerMapper.toWriterIgnoreAvatarField(register);
             writer.setPassword(passwordEncoder.encode(writer.getPassword()));
+            if (!register.getAvatarFile().isEmpty() ) {
+                writer.setAvatar(FileUtils.uploadFile(register.getAvatarFile()));
+            }else{
+             writer.setAvatar(FileConstant.DEFAULT_IMAGE);
+            }
             writerRepository.create(writer);
             return ResponseMessageDto
                     .builder()
@@ -105,7 +112,6 @@ public class WriterServiceImpl implements WriterService {
                         .status(HttpStatus.CONFLICT)
                         .build();
             }
-
         }
     }
 

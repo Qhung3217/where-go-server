@@ -16,7 +16,7 @@ public interface ArticleMapper {
     SimpleArticleDto toSimpleArticleDto(Article article);
 
     @Named("toSimpleWriter")
-    public static SimpleWriterDto toSimpleArticle(Writer writer){
+    public static SimpleWriterDto getSimpleArticle(Writer writer){
         return SimpleWriterDto
                 .builder()
                 .name(writer.getName())

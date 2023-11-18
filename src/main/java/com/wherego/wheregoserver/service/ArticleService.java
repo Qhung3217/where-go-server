@@ -8,4 +8,6 @@ import java.util.List;
 @Service
 public interface ArticleService {
     List<SimpleArticleDto> getAll();
+
+    List<SimpleArticleDto> getRandom(Integer quantity);
 }

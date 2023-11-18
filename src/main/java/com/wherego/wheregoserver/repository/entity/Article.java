@@ -14,6 +14,8 @@ import lombok.Setter;
 @Table(name = "article")
 @NamedQueries({
         @NamedQuery(name = "select.All.Article", query = "SELECT a FROM Article a"),
+        @NamedQuery(name = "select.Random.Article", query = "SELECT a FROM Article a ORDER BY " +
+                "rand() LIMIT :quantity"),
 })
 public class Article {
     @Id

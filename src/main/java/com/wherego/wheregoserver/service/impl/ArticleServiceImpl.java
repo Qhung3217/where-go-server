@@ -24,4 +24,12 @@ public class ArticleServiceImpl implements ArticleService {
                 .map(articleMapper::toSimpleArticleDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<SimpleArticleDto> getRandom(Integer quantity) {
+        return articleRepository.getRandom(quantity)
+                .stream()
+                .map(articleMapper::toSimpleArticleDto)
+                .collect(Collectors.toList());
+    }
 }

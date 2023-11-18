@@ -1,24 +1,27 @@
 package com.wherego.wheregoserver.repository.entity;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wherego.wheregoserver.constant.UserRole;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "writer")
+@NamedQueries({
+        @NamedQuery(name = "select.Username.Writer", query = "SELECT w FROM Writer w WHERE w.username = " +
+                ":username"),
+        @NamedQuery(name = "select.Email.Writer", query = "SELECT w FROM Writer w WHERE w.email = " +
+                ":email"),
+})
 public class Writer {
 
     @Id
@@ -28,10 +31,10 @@ public class Writer {
     @Column(name = "writer_name", nullable = false)
     private String name;
 
-    @Column(name = "writer_tels", nullable = false, length=10)
+    @Column(name = "writer_tels", nullable = false, length = 10)
     private String tels;
 
-    @Column(name = "writer_avatar", nullable = true, length=512)
+    @Column(name = "writer_avatar", nullable = true, length = 512)
     private String avatar;
 
     @Column(name = "writer_dob", nullable = false)
@@ -40,7 +43,7 @@ public class Writer {
     @Column(name = "writer_password", nullable = false)
     private String password;
 
-    @Column(name = "writer_username", nullable = false)
+    @Column(name = "writer_username", nullable = false, unique = true)
     private String username;
 
     public Writer(String email, String name, String tels, String avatar, Date dob, String password, String username) {
@@ -55,5 +58,10 @@ public class Writer {
 
     @OneToMany(mappedBy = "writer", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Article> articles;
+
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(UserRole.ROLE_WRITER));
+    }
 
 }

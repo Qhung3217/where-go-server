@@ -2,7 +2,6 @@ package com.wherego.wheregoserver.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
@@ -10,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @NotBlank
 @Builder
-public class ResponseMessageDto {
-    private HttpStatus status;
-    private String message;
+public class AuthenticateResponseDto {
+    private String username;
+    private String token;
 }

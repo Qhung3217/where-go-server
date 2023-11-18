@@ -1,8 +1,8 @@
 package com.wherego.wheregoserver.service;
 
-import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
-import com.wherego.wheregoserver.dto.ChangePasswordDto;
-import com.wherego.wheregoserver.dto.CredentialDto;
+import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
+import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
+import com.wherego.wheregoserver.dto.auth.CredentialDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.writer.WriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;

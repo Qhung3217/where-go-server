@@ -57,6 +57,7 @@ private HandlerExceptionResolver exceptionResolver;
     };
     private static final String[] WRITER_LIST_URL = {
             "/writer/**",
+            "/article/create",
     };
 
 

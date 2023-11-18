@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -34,6 +36,9 @@ public class Article {
 
     @Column(name = "article_short_description", nullable = false, length=800)
     private String shortDescription;
+
+    @Column(name = "article_create_date", nullable = false)
+    private Date createDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_email", nullable = false)

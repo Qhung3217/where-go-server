@@ -6,6 +6,8 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,5 +28,9 @@ public class ArticleRepository {
         TypedQuery<Article> query = em.createNamedQuery("select.Random.Article", Article.class);
         query.setParameter("quantity", quantity);
         return query.getResultList();
+    }
+
+    public void create(Article article) throws IOException, ParseException, NullPointerException, Exception {
+        em.persist(article);
     }
 }

@@ -1,9 +1,13 @@
 package com.wherego.wheregoserver.service.impl;
 
 import com.wherego.wheregoserver.constant.FileConstant;
-import com.wherego.wheregoserver.dto.*;
+import com.wherego.wheregoserver.dto.AuthenticateResponseDto;
+import com.wherego.wheregoserver.dto.ChangePasswordDto;
+import com.wherego.wheregoserver.dto.CredentialDto;
+import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.writer.WriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
+import com.wherego.wheregoserver.dto.writer.WriterUpdateDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.InvalidFieldValueException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
@@ -20,6 +24,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -75,12 +80,17 @@ public class WriterServiceImpl implements WriterService {
         try {
             Writer writer = writerMapper.toWriterIgnoreAvatarField(register);
             writer.setPassword(passwordEncoder.encode(writer.getPassword()));
-            if (!register.getAvatarFile().isEmpty() ) {
-                writer.setAvatar(FileUtils.uploadFile(register.getAvatarFile()));
-            }else{
-             writer.setAvatar(FileConstant.DEFAULT_IMAGE);
+            String avatarFileName = null;
+            if (FileUtils.isValidFile(register.getAvatarFile())) {
+                avatarFileName = FileUtils.generateUniqueFilename(register.getAvatarFile());
+                writer.setAvatar(avatarFileName);
+            } else {
+                writer.setAvatar(FileConstant.DEFAULT_IMAGE);
             }
             writerRepository.create(writer);
+            if (avatarFileName != null) {
+               FileUtils.uploadFile(register.getAvatarFile(), avatarFileName);
+            }
             return ResponseMessageDto
                     .builder()
                     .message("Create account successfully")
@@ -160,19 +170,110 @@ public class WriterServiceImpl implements WriterService {
 
     @Override
     public ResponseMessageDto changePassword(String token, ChangePasswordDto password) {
-        String email = jwtService.extractUsername(token);
-        Writer writer = writerRepository.getByEmail(email);
-        if (passwordEncoder.matches( password.getCurrentPassword(),writer.getPassword())) {
-            writer.setPassword(passwordEncoder.encode(password.getNewPassword()));
-            writerRepository.update(writer);
+        try {
+            String email = jwtService.extractUsername(token);
+            Writer writer = writerRepository.getByEmail(email);
+            if (passwordEncoder.matches(password.getCurrentPassword(), writer.getPassword())) {
+                writer.setPassword(passwordEncoder.encode(password.getNewPassword()));
+                writerRepository.update(writer);
+                return ResponseMessageDto
+                        .builder()
+                        .message("Change password successfully")
+                        .status(HttpStatus.OK)
+                        .build();
+            } else
+                throw new InvalidFieldValueException(new String[]{"currentPassword"});
+        } catch (IOException e) {
             return ResponseMessageDto
                     .builder()
-                    .message("Change password successfully")
-                    .status(HttpStatus.OK)
+                    .message("Error when trying to upload file")
+                    .status(HttpStatus.NOT_IMPLEMENTED)
                     .build();
-        } else
-            throw new InvalidFieldValueException(new String[]{"currentPassword"});
+        } catch (ParseException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Incorrect date format")
+                    .status(HttpStatus.PRECONDITION_FAILED)
+                    .build();
+        } catch (Exception e) {
+            if (e.getMessage() == null) {
+                return ResponseMessageDto
+                        .builder()
+                        .message("Not enough required fields")
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build();
+            } else {
+                return ResponseMessageDto
+                        .builder()
+                        .message(e.getMessage())
+                        .status(HttpStatus.CONFLICT)
+                        .build();
+            }
+        }
     }
 
+    @Override
+    public ResponseMessageDto update(String token, WriterUpdateDto newWriter, MultipartFile newAvatarFile) {
+        try {
+            String email = jwtService.extractUsername(token);
+            Writer writer = writerRepository.getByEmail(email);
+            String oldFileName = null;
+            String newAvatarFileName = null;
+            if (FileUtils.isValidFile(newAvatarFile) && !newAvatarFile.getOriginalFilename().equals(writer.getAvatar())) {
+                oldFileName =  writer.getAvatar();
+                newAvatarFileName = FileUtils.generateUniqueFilename(newAvatarFile);
+                writer.setAvatar(newAvatarFileName);
+            }
+            writerRepository.update(mergeWriter(writer, newWriter));
+            if (oldFileName != null) {
+                if (!oldFileName.equals(FileConstant.DEFAULT_IMAGE))
+                    FileUtils.removeOldFile(oldFileName);
+                FileUtils.uploadFile(newAvatarFile, newAvatarFileName);
+            }
+            return ResponseMessageDto
+                    .builder()
+                    .message("Update account successfully")
+                    .status(HttpStatus.OK)
+                    .build();
+        } catch (IOException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Error when trying to upload file")
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .build();
+        } catch (ParseException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Incorrect date format")
+                    .status(HttpStatus.PRECONDITION_FAILED)
+                    .build();
+        } catch (Exception e) {
+            if (e.getMessage() == null) {
+                return ResponseMessageDto
+                        .builder()
+                        .message("Not enough required fields")
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build();
+            } else {
+                return ResponseMessageDto
+                        .builder()
+                        .message(e.getMessage())
+                        .status(HttpStatus.CONFLICT)
+                        .build();
+            }
+        }
+    }
+
+    private Writer mergeWriter(Writer originWriter, WriterUpdateDto writerUpdate) {
+        if (writerUpdate.getName() != null)
+            originWriter.setName(writerUpdate.getName());
+        if (writerUpdate.getTels() != null)
+            originWriter.setTels(writerUpdate.getTels());
+        if (writerUpdate.getDob() != null)
+            originWriter.setDob(writerUpdate.getDob());
+        if (writerUpdate.getUsername() != null)
+            originWriter.setUsername(writerUpdate.getUsername());
+        return originWriter;
+    }
 
 }

@@ -14,11 +14,19 @@ import java.util.UUID;
 
 public class FileUtils {
     public static String uploadFile(MultipartFile file) throws IOException, NullPointerException {
+        String fileName = generateUniqueFilename(file);
+        uploadFile(file, fileName);
+        return fileName;
+    }
+
+    public static void uploadFile(MultipartFile file, String fileName) throws IOException,
+            NullPointerException {
         if (!isImageFile(file))
             throw new InvalidFieldValueException("Invalid image file");
-        String originFileName = file.getOriginalFilename();
-        String fileName = generateUniqueFilename() +
-                originFileName.substring(originFileName.lastIndexOf('.'));
+        if (!fileName.contains(".")) {
+            String originFileName = file.getOriginalFilename();
+            fileName += originFileName.substring(originFileName.lastIndexOf('.'));
+        }
         // Create the upload directory if it doesn't exist
         Path uploadPath = Paths.get(FileConstant.UPLOAD_DIR);
         if (!Files.exists(uploadPath)) {
@@ -28,7 +36,6 @@ public class FileUtils {
         // Save the file to the server
         Path filePath = uploadPath.resolve(fileName);
         Files.copy(file.getInputStream(), filePath);
-        return fileName;
     }
 
     public static void removeOldFile(String fileName) throws IOException {
@@ -38,17 +45,24 @@ public class FileUtils {
         Files.delete(oldFilePath);
     }
 
-    private static String generateUniqueFilename() {
+    public static String generateUniqueFilename(MultipartFile file) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp = dateFormat.format(new Date());
 
         String randomValue = UUID.randomUUID().toString().replace("-", "");
 
-        return timestamp + "_" + randomValue;
+        String originFileName = file.getOriginalFilename();
+        String extend = originFileName.substring(originFileName.lastIndexOf('.'));
+
+        return timestamp + "_" + randomValue + extend;
     }
 
-    private static boolean isImageFile(MultipartFile file) {
+    public static boolean isImageFile(MultipartFile file) {
         return file.getContentType() != null && FileConstant.ALLOWED_IMAGE_TYPES.contains(file.getContentType());
+    }
+
+    public static boolean isValidFile(MultipartFile file) {
+        return isImageFile(file) && !file.isEmpty();
     }
 
 }

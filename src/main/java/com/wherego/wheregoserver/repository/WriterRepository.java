@@ -42,7 +42,7 @@ public class WriterRepository {
         em.persist(writer);
     }
 
-    public void update(Writer writer) {
+    public void update(Writer writer) throws IOException, ParseException, NullPointerException, Exception{
         em.merge(writer);
     }
 }

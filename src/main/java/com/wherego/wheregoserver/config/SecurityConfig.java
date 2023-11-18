@@ -49,7 +49,13 @@ private HandlerExceptionResolver exceptionResolver;
             "/place/**",
             "/restaurant/**",
             "/search",
-
+            "/article"
+    };
+    private static final String[] TRAVELER_LIST_URL = {
+            "/traveler/**",
+    };
+    private static final String[] WRITER_LIST_URL = {
+            "/writer/**",
     };
 
 
@@ -61,8 +67,8 @@ private HandlerExceptionResolver exceptionResolver;
                         authorizeHttpRequests
                                 .requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/traveler/**").hasRole(UserRole.TRAVELER)
-                                .requestMatchers("/api/writer/**").hasRole(UserRole.WRITER)
+                                .requestMatchers(TRAVELER_LIST_URL).hasRole(UserRole.TRAVELER)
+                                .requestMatchers(WRITER_LIST_URL).hasRole(UserRole.WRITER)
                                 .anyRequest()
                                 .authenticated()
                 )

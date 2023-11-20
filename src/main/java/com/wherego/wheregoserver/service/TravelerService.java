@@ -2,6 +2,7 @@ package com.wherego.wheregoserver.service;
 
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
+import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
@@ -21,4 +22,6 @@ public interface TravelerService {
     ResponseMessageDto checkEmailExist(String email);
 
     TravelerDto getDetail(String token);
+
+    ResponseMessageDto changePassword(String token, ChangePasswordDto password);
 }

@@ -3,10 +3,12 @@ package com.wherego.wheregoserver.service.impl;
 import com.wherego.wheregoserver.constant.FileConstant;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
+import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
+import com.wherego.wheregoserver.exception.InvalidFieldValueException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.TravelerMapper;
 import com.wherego.wheregoserver.repository.TravelerRepository;
@@ -175,5 +177,49 @@ public class TravelerServiceImpl implements TravelerService {
         String email = jwtService.extractUsername(token);
         Traveler traveler = travelerRepository.getByEmail(email);
         return travelerMapper.toTravelerDto(traveler);
+    }
+
+    @Override
+    public ResponseMessageDto changePassword(String token, ChangePasswordDto password) {
+        try {
+            String email = jwtService.extractUsername(token);
+            Traveler traveler = travelerRepository.getByEmail(email);
+            if (passwordEncoder.matches(password.getCurrentPassword(), traveler.getPassword())) {
+                traveler.setPassword(passwordEncoder.encode(password.getNewPassword()));
+                travelerRepository.update(traveler);
+                return ResponseMessageDto
+                        .builder()
+                        .message("Change password successfully")
+                        .status(HttpStatus.OK)
+                        .build();
+            } else
+                throw new InvalidFieldValueException(new String[]{"currentPassword"});
+        } catch (IOException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Error when trying to upload file")
+                    .status(HttpStatus.NOT_IMPLEMENTED)
+                    .build();
+        } catch (ParseException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Incorrect date format")
+                    .status(HttpStatus.PRECONDITION_FAILED)
+                    .build();
+        } catch (Exception e) {
+            if (e.getMessage() == null) {
+                return ResponseMessageDto
+                        .builder()
+                        .message("Not enough required fields")
+                        .status(HttpStatus.BAD_REQUEST)
+                        .build();
+            } else {
+                return ResponseMessageDto
+                        .builder()
+                        .message(e.getMessage())
+                        .status(HttpStatus.CONFLICT)
+                        .build();
+            }
+        }
     }
 }

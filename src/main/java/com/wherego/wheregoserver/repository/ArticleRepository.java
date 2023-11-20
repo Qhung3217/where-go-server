@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.repository;
 
+import com.wherego.wheregoserver.exception.ResourceNotFoundException;
 import com.wherego.wheregoserver.repository.entity.Article;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -18,7 +19,7 @@ public class ArticleRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Article> getAll(){
+    public List<Article> getAll() {
         TypedQuery<Article> query = em.createNamedQuery("select.All.Article", Article.class);
         return query.getResultList();
     }
@@ -31,16 +32,29 @@ public class ArticleRepository {
         return query.getResultList();
     }
 
-    public void create(Article article) throws IOException, ParseException, NullPointerException, Exception {
+    public Article getById(Long id) {
+        Article article = em.find(Article.class, id);
+        if (article == null)
+            throw new ResourceNotFoundException("Article", "id", id);
+        return article;
+    }
+
+    public void create(Article article)
+            throws IOException, ParseException, NullPointerException, Exception {
         em.persist(article);
     }
 
-    public List<Article> search(String keyword){
+    public void update(Article article)
+            throws IOException, ParseException, NullPointerException, Exception {
+        em.merge(article);
+    }
+
+    public List<Article> search(String keyword) {
         if (keyword.isBlank())
             return List.of();
         try {
             TypedQuery<Article> query = em.createNamedQuery("search.Article", Article.class);
-            query.setParameter("keyword", "%"+keyword+"%");
+            query.setParameter("keyword", "%" + keyword + "%");
             return query.getResultList();
         } catch (NoResultException e) {
             return List.of();

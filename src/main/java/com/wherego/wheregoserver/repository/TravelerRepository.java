@@ -25,7 +25,9 @@ public class TravelerRepository {
         } catch (NoResultException e) {
             throw new UserNotFoundException("User");
         }
-    };
+    }
+
+    ;
 
     public Traveler getByUsername(String username) {
         try {
@@ -41,10 +43,13 @@ public class TravelerRepository {
     }
 
     public void create(Traveler traveler)
-            throws IOException, ParseException, NullPointerException, Exception
-    {
+            throws IOException, ParseException, NullPointerException, Exception {
         em.persist(traveler);
     }
 
 
+    public void update(Traveler traveler)
+            throws IOException, ParseException, NullPointerException, Exception {
+        em.merge(traveler);
+    }
 }

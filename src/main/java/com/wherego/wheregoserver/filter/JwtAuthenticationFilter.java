@@ -3,6 +3,7 @@ package com.wherego.wheregoserver.filter;
 import com.wherego.wheregoserver.constant.UserRole;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.service.JwtService;
+import com.wherego.wheregoserver.service.TravelerService;
 import com.wherego.wheregoserver.service.WriterService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -33,6 +34,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
     @Autowired
     private  WriterService writerService;
+    @Autowired
+    private TravelerService travelerService;
     private HandlerExceptionResolver exceptionResolver;
 
     @Autowired
@@ -90,9 +93,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UserDetails loadUserDetailsByUsernameAndAuthorities(String username,List<GrantedAuthority> authorities) {
         final boolean isWriter =
                 authorities.contains(UserRole.ROLE_WRITER);
+        final boolean isTraveler =
+                authorities.contains(UserRole.ROLE_TRAVELER);
         if (isWriter) {
            return writerService.loadByUserEmail(username);
-        }else
+        }else if(isTraveler)
+            return travelerService.loadByUserEmail(username);
+        else
             throw new BadCredentialsException("Invalid user");
     }
 }

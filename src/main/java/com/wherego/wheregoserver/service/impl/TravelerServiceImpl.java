@@ -10,7 +10,6 @@ import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.TravelerMapper;
 import com.wherego.wheregoserver.repository.TravelerRepository;
 import com.wherego.wheregoserver.repository.entity.Traveler;
-import com.wherego.wheregoserver.repository.entity.Writer;
 import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.TravelerService;
 import com.wherego.wheregoserver.utils.FileUtils;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -113,6 +113,20 @@ public class TravelerServiceImpl implements TravelerService {
             }
         } catch (IllegalArgumentException e) {
             throw new InvalidFieldNameException();
+        } catch (UserNotFoundException e) {
+            throw new BadCredentialsException("Invalid credentials");
+        }
+    }
+
+    @Override
+    public UserDetails loadByUserEmail(String email) {
+        try {
+            Traveler traveler = travelerRepository.getByEmail(email);
+            return new User(
+                    traveler.getEmail(),
+                    traveler.getPassword(),
+                    traveler.getAuthorities()
+            );
         } catch (UserNotFoundException e) {
             throw new BadCredentialsException("Invalid credentials");
         }

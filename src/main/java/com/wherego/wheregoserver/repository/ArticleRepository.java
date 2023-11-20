@@ -2,6 +2,7 @@ package com.wherego.wheregoserver.repository;
 
 import com.wherego.wheregoserver.repository.entity.Article;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,17 @@ public class ArticleRepository {
 
     public void create(Article article) throws IOException, ParseException, NullPointerException, Exception {
         em.persist(article);
+    }
+
+    public List<Article> search(String keyword){
+        if (keyword.isBlank())
+            return List.of();
+        try {
+            TypedQuery<Article> query = em.createNamedQuery("search.Article", Article.class);
+            query.setParameter("keyword", "%"+keyword+"%");
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return List.of();
+        }
     }
 }

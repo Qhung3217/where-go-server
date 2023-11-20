@@ -18,6 +18,8 @@ import java.util.Date;
         @NamedQuery(name = "select.All.Article", query = "SELECT a FROM Article a"),
         @NamedQuery(name = "select.Random.Article", query = "SELECT a FROM Article a ORDER BY " +
                 "rand() LIMIT :quantity"),
+        @NamedQuery(name = "search.Article", query = "SELECT a FROM Article a WHERE lower(a" +
+                ".title) LIKE lower(:keyword)"),
 })
 public class Article {
     @Id

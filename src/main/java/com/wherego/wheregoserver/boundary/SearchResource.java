@@ -1,10 +1,12 @@
 package com.wherego.wheregoserver.boundary;
 
+import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
 import com.wherego.wheregoserver.dto.place.SimplePlaceDto;
 import com.wherego.wheregoserver.dto.restaurant.SimpleRestaurantDto;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;
+import com.wherego.wheregoserver.service.ArticleService;
 import com.wherego.wheregoserver.service.HotelService;
 import com.wherego.wheregoserver.service.PlaceService;
 import com.wherego.wheregoserver.service.RestaurantService;
@@ -31,10 +33,13 @@ public class SearchResource {
     @Autowired
     private PlaceService placeService;
 
+    @Autowired
+    private ArticleService articleService;
+
 
     @GetMapping
-    public <T>T search(@RequestParam(value = "category", required = false) String category,
-                       @RequestParam(value = "keyword", required = false) String keyword) {
+    public <T> T search(@RequestParam(value = "category", required = false) String category,
+                        @RequestParam(value = "keyword", required = false) String keyword) {
 
         if (category == null && keyword == null) {
             String[] strings = new String[]{"category", "keyword"};
@@ -54,7 +59,10 @@ public class SearchResource {
                 return (T) searchRestaurant(keyword);
             case "place":
                 return (T) searchPlace(keyword);
-            default: throw new ResourceInvalidException("category",category);
+            case "article":
+                return (T) searchArticle(keyword);
+            default:
+                throw new ResourceInvalidException("category", category);
         }
     }
 
@@ -63,13 +71,18 @@ public class SearchResource {
                 HttpStatus.OK);
     }
 
-    private ResponseEntity<List<SimpleRestaurantDto>> searchRestaurant(String keyword){
+    private ResponseEntity<List<SimpleRestaurantDto>> searchRestaurant(String keyword) {
         return new ResponseEntity<List<SimpleRestaurantDto>>(restaurantService.search(keyword),
                 HttpStatus.OK);
     }
 
-    private ResponseEntity<List<SimplePlaceDto>> searchPlace(String keyword){
+    private ResponseEntity<List<SimplePlaceDto>> searchPlace(String keyword) {
         return new ResponseEntity<List<SimplePlaceDto>>(placeService.search(keyword),
+                HttpStatus.OK);
+    }
+
+    private ResponseEntity<List<SimpleArticleDto>> searchArticle(String keyword) {
+        return new ResponseEntity<List<SimpleArticleDto>>(articleService.search(keyword),
                 HttpStatus.OK);
     }
 

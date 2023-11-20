@@ -3,10 +3,12 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
+import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;
+import com.wherego.wheregoserver.service.TravelerService;
 import com.wherego.wheregoserver.service.WriterService;
 import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
@@ -26,6 +28,7 @@ import java.sql.Date;
 public class AuthenticateResource {
 
     private final WriterService writerService;
+    private final TravelerService travelerService;
 
     @PostMapping(value = "/login")
     public ResponseEntity<AuthenticateResponseDto> login(@PathParam("role") String role,
@@ -89,4 +92,29 @@ public class AuthenticateResource {
                 HttpStatus.OK);
     }
 
+    @PostMapping(
+            value = "/traveler/register",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    @Transactional
+    public ResponseEntity<ResponseMessageDto> registerTraveler(
+            @RequestParam("email") String email,
+            @RequestParam("name") String name,
+            @RequestParam("tels") String tels,
+            @RequestParam("dob") Date dob,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam(value = "avatar", required = false) MultipartFile avatarFile
+    ) {
+        TravelerRegisterDto register =
+                new TravelerRegisterDto(
+                        email, name, tels,
+                        avatarFile, dob,
+                        username, password
+                );
+        return new ResponseEntity<ResponseMessageDto>(
+                travelerService.register(register),
+                HttpStatus.CREATED
+        );
+    }
 }

@@ -27,9 +27,24 @@ public class TravelerRepository {
         }
     };
 
+    public Traveler getByUsername(String username) {
+        try {
+            TypedQuery<Traveler> query = em.createNamedQuery(
+                    "select.Username.Traveler",
+                    Traveler.class
+            );
+            query.setParameter("username", username);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new UserNotFoundException("User");
+        }
+    }
+
     public void create(Traveler traveler)
             throws IOException, ParseException, NullPointerException, Exception
     {
         em.persist(traveler);
     }
+
+
 }

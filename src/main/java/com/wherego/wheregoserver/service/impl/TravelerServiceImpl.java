@@ -131,4 +131,22 @@ public class TravelerServiceImpl implements TravelerService {
             throw new BadCredentialsException("Invalid credentials");
         }
     }
+
+    @Override
+    public ResponseMessageDto checkUsernameExist(String username) {
+        try {
+            travelerRepository.getByUsername(username);
+            return ResponseMessageDto
+                    .builder()
+                    .message("Username already exist")
+                    .status(HttpStatus.CONFLICT)
+                    .build();
+        } catch (UserNotFoundException e) {
+            return ResponseMessageDto
+                    .builder()
+                    .message("Username not exist")
+                    .status(HttpStatus.OK)
+                    .build();
+        }
+    }
 }

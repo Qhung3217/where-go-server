@@ -13,5 +13,7 @@ public interface ArticleService {
 
     List<SimpleArticleDto> getRandom(Integer quantity);
 
+    List<SimpleArticleDto> search(String keyword);
+
     ResponseMessageDto create(String token, CreateArticleDto createArticleDto);
 }

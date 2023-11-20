@@ -49,6 +49,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<SimpleArticleDto> search(String keyword) {
+        return articleRepository.search(keyword)
+                .stream()
+                .map(articleMapper::toSimpleArticleDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ResponseMessageDto create(String token, CreateArticleDto createArticleDto) {
         try {
             Article article = articleMapper.toArticle(createArticleDto);
@@ -62,7 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
 
             articleRepository.create(article);
 
-            FileUtils.uploadFile(createArticleDto.getThumbnail(),fileName);
+            FileUtils.uploadFile(createArticleDto.getThumbnail(), fileName);
 
             return ResponseMessageDto
                     .builder()

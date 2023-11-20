@@ -3,15 +3,21 @@ package com.wherego.wheregoserver.service.impl;
 import com.wherego.wheregoserver.constant.FileConstant;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
+import com.wherego.wheregoserver.dto.auth.CredentialDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
+import com.wherego.wheregoserver.exception.InvalidFieldNameException;
+import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.TravelerMapper;
 import com.wherego.wheregoserver.repository.TravelerRepository;
 import com.wherego.wheregoserver.repository.entity.Traveler;
 import com.wherego.wheregoserver.repository.entity.Writer;
+import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.TravelerService;
 import com.wherego.wheregoserver.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +32,9 @@ public class TravelerServiceImpl implements TravelerService {
     private TravelerMapper travelerMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtService jwtService;
+
     @Override
     public ResponseMessageDto register(TravelerRegisterDto register) {
         try {
@@ -73,6 +82,39 @@ public class TravelerServiceImpl implements TravelerService {
                         .status(HttpStatus.CONFLICT)
                         .build();
             }
+        }
+    }
+
+    @Override
+    public AuthenticateResponseDto authenticate(CredentialDto credential) {
+        try {
+            Traveler traveler = travelerRepository.getByEmail(credential.getEmail());
+            if (
+                    traveler != null
+                            &&
+                            passwordEncoder.matches(
+                                    credential.getPassword(),
+                                    traveler.getPassword()
+                            )
+            ) {
+                User user = new User(
+                        traveler.getEmail(),
+                        traveler.getPassword(),
+                        traveler.getAuthorities()
+                );
+                String token = jwtService.generateToken(user);
+                return AuthenticateResponseDto
+                        .builder()
+                        .username(traveler.getUsername())
+                        .token(token)
+                        .build();
+            } else {
+                throw new BadCredentialsException("Invalid credentials");
+            }
+        } catch (IllegalArgumentException e) {
+            throw new InvalidFieldNameException();
+        } catch (UserNotFoundException e) {
+            throw new BadCredentialsException("Invalid credentials");
         }
     }
 }

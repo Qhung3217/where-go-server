@@ -31,22 +31,24 @@ public class AuthenticateResource {
     private final TravelerService travelerService;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<AuthenticateResponseDto> login(@PathParam("role") String role,
-                                                         @RequestBody CredentialDto credential) {
-        if (role == null) {
-            String[] params = {"role"};
-            throw new MissingParamsException(params);
-        }
+    public ResponseEntity<AuthenticateResponseDto> login(
+            @PathParam("role") String role,
+            @RequestBody CredentialDto credential
+    ) {
+        if (role == null)
+            throw new MissingParamsException(new String[]{"role"});
 
         switch (role) {
             case "writer":
                 return ResponseEntity.ok(writerService.authenticate(credential));
             case "traveler":
+                return ResponseEntity.ok(travelerService.authenticate(credential));
             default:
                 throw new ResourceInvalidException("Role", role);
         }
     }
 
+    //    ----------------------WRITER AUTH APIs --------------------
     @PostMapping(
             value = "/writer/register",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -74,7 +76,9 @@ public class AuthenticateResource {
     }
 
     @PostMapping(value = "/writer/check-username-exist")
-    public ResponseEntity<ResponseMessageDto> checkUsernameExist(@RequestBody MultiValueMap<String, String> payload) {
+    public ResponseEntity<ResponseMessageDto> checkUsernameExist(
+            @RequestBody MultiValueMap<String, String> payload
+    ) {
         String username = payload.getFirst("username");
         if (username == null)
             throw new InvalidFieldNameException("Missing field username or value is null");
@@ -83,14 +87,19 @@ public class AuthenticateResource {
     }
 
     @PostMapping(value = "/writer/check-email-exist")
-    public ResponseEntity<ResponseMessageDto> checkEmailExist(@RequestBody MultiValueMap<String,
-            String> payload) {
+    public ResponseEntity<ResponseMessageDto> checkEmailExist(
+            @RequestBody MultiValueMap<String, String> payload
+    ) {
         String email = payload.getFirst("email");
         if (email == null)
             throw new InvalidFieldNameException("Missing field email or value is null");
         return new ResponseEntity<ResponseMessageDto>(writerService.checkEmailExist(email),
                 HttpStatus.OK);
     }
+
+    //    ----------------------END WRITER AUTH APIs --------------------
+    //    ---------------------------------------------------------------
+    //    ----------------------TRAVELER AUTH APIs ----------------------
 
     @PostMapping(
             value = "/traveler/register",
@@ -117,4 +126,6 @@ public class AuthenticateResource {
                 HttpStatus.CREATED
         );
     }
+    //    ----------------------END TRAVELER AUTH APIs ------------------
+
 }

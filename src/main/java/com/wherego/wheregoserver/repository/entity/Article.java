@@ -1,18 +1,12 @@
 package com.wherego.wheregoserver.repository.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -20,6 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "article")
+@NamedQueries({
+        @NamedQuery(name = "select.All.Article", query = "SELECT a FROM Article a"),
+        @NamedQuery(name = "select.Random.Article", query = "SELECT a FROM Article a ORDER BY " +
+                "rand() LIMIT :quantity"),
+        @NamedQuery(name = "search.Article", query = "SELECT a FROM Article a WHERE lower(a" +
+                ".title) LIKE lower(:keyword)"),
+})
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +38,9 @@ public class Article {
 
     @Column(name = "article_short_description", nullable = false, length=800)
     private String shortDescription;
+
+    @Column(name = "article_create_date", nullable = false)
+    private Date createDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_email", nullable = false)

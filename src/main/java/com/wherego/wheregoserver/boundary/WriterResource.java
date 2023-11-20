@@ -1,7 +1,7 @@
 package com.wherego.wheregoserver.boundary;
 
 import com.wherego.wheregoserver.constant.UserRole;
-import com.wherego.wheregoserver.dto.ChangePasswordDto;
+import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.writer.WriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterUpdateDto;
@@ -18,7 +18,7 @@ import java.sql.Date;
 
 @RestController
 @RequestMapping(value="/writer")
-@PreAuthorize("hasRole("+UserRole.WRITER+")")
+//@PreAuthorize("hasRole("+UserRole.WRITER+")")
 public class WriterResource {
     @Autowired
     private WriterService writerService;

@@ -62,7 +62,11 @@ public class FileUtils {
     }
 
     public static boolean isValidFile(MultipartFile file) {
-        return isImageFile(file) && !file.isEmpty();
+        if (file == null)
+            return false;
+        if (file.isEmpty())
+            return false;
+        return isImageFile(file);
     }
 
 }

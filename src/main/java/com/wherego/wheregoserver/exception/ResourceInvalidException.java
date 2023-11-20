@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Getter
 @Setter
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class ResourceInvalidException extends RuntimeException implements BaseException{
+public class ResourceInvalidException extends RuntimeException implements BaseException {
     private String resourceName;
     private String resourceValue;
 
@@ -16,6 +16,10 @@ public class ResourceInvalidException extends RuntimeException implements BaseEx
         super(String.format("Invalid %s: %s", resourceName, resourceValue));
         this.resourceName = resourceName;
         this.resourceValue = resourceValue;
+    }
+
+    public ResourceInvalidException(String message) {
+        super(message);
     }
 
     public HttpStatus getStatus() {

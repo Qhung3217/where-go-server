@@ -16,4 +16,6 @@ public interface ArticleService {
     List<SimpleArticleDto> search(String keyword);
 
     ResponseMessageDto create(String token, CreateArticleDto createArticleDto);
+
+    ResponseMessageDto update(String token, CreateArticleDto updateArticle, Long articleId);
 }

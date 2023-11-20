@@ -3,6 +3,7 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.article.CreateArticleDto;
 import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
+import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.service.ArticleService;
 import com.wherego.wheregoserver.utils.HeaderUtils;
 import jakarta.transaction.Transactional;
@@ -54,6 +55,35 @@ public class ArticleResource {
                         article
                 ),
                 HttpStatus.CREATED
+        );
+    }
+
+    @PostMapping("/update/{articleId}")
+    @Transactional
+    public ResponseEntity<ResponseMessageDto> update(
+            @PathVariable Long articleId,
+            @RequestHeader("Authorization") String authorizationHeader,
+            @PathParam("title") String title,
+            @PathParam("shortDescription") String shortDescription,
+            @PathParam("content") String content,
+            @PathParam("thumbnail") MultipartFile thumbnail
+    ) {
+
+        String token = HeaderUtils.getToken(authorizationHeader);
+        CreateArticleDto article = CreateArticleDto
+                .builder()
+                .thumbnail(thumbnail)
+                .shortDescription(shortDescription)
+                .title(title)
+                .content(content)
+                .build();
+        return new ResponseEntity<ResponseMessageDto>(
+                articleService.update(
+                        token,
+                        article,
+                        articleId
+                ),
+                HttpStatus.OK
         );
     }
 }

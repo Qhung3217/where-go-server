@@ -2,6 +2,7 @@ package com.wherego.wheregoserver.exception.handler;
 
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.exception.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -61,6 +62,13 @@ public class GlobalExceptionHandler extends SecurityExceptionHandler {
     public ResponseEntity<ResponseMessageDto> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
         ResponseMessageDto msg = new ResponseMessageDto(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
                 ex.getMessage());
+        return new ResponseEntity<>(msg, msg.getStatus());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ResponseMessageDto> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        ResponseMessageDto msg = new ResponseMessageDto(HttpStatus.CONFLICT,
+                "Duplicate primary key");
         return new ResponseEntity<>(msg, msg.getStatus());
     }
 

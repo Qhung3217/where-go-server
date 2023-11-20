@@ -16,4 +16,6 @@ public interface TravelerService {
     UserDetails loadByUserEmail(String email);
 
     ResponseMessageDto checkUsernameExist(String username);
+
+    ResponseMessageDto checkEmailExist(String email);
 }

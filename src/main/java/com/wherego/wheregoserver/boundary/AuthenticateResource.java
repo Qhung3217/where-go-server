@@ -126,6 +126,31 @@ public class AuthenticateResource {
                 HttpStatus.CREATED
         );
     }
+
+    @GetMapping(value = "/traveler/check-username-exist")
+    public ResponseEntity<ResponseMessageDto> checkTravelerUsernameExist(
+            @PathParam("username") String username
+    ) {
+        if (username == null)
+            throw new MissingParamsException(new String[]{"username"});
+        return new ResponseEntity<ResponseMessageDto>(
+                travelerService.checkUsernameExist(username),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping(value = "/traveler/check-email-exist")
+    public ResponseEntity<ResponseMessageDto> checkTravelerEmailExist(
+            @PathParam("email") String email
+    ) {
+        if (email == null)
+            throw new MissingParamsException(new String[]{"email"});
+        return new ResponseEntity<ResponseMessageDto>(
+                travelerService.checkEmailExist(email),
+                HttpStatus.OK
+        );
+    }
+
     //    ----------------------END TRAVELER AUTH APIs ------------------
 
 }

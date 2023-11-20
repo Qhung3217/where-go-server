@@ -10,7 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface TravelerService {
     ResponseMessageDto register(TravelerRegisterDto register);
+
     AuthenticateResponseDto authenticate(CredentialDto credential);
 
     UserDetails loadByUserEmail(String email);
+
+    ResponseMessageDto checkUsernameExist(String username);
+
+    ResponseMessageDto checkEmailExist(String email);
 }

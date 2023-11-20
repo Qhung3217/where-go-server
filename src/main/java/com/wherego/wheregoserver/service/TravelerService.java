@@ -3,6 +3,7 @@ package com.wherego.wheregoserver.service;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
+import com.wherego.wheregoserver.dto.traveler.TravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,6 @@ public interface TravelerService {
     ResponseMessageDto checkUsernameExist(String username);
 
     ResponseMessageDto checkEmailExist(String email);
+
+    TravelerDto getDetail(String token);
 }

@@ -4,12 +4,14 @@ import com.wherego.wheregoserver.constant.FileConstant;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
+import com.wherego.wheregoserver.dto.traveler.TravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.TravelerMapper;
 import com.wherego.wheregoserver.repository.TravelerRepository;
 import com.wherego.wheregoserver.repository.entity.Traveler;
+import com.wherego.wheregoserver.repository.entity.Writer;
 import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.TravelerService;
 import com.wherego.wheregoserver.utils.FileUtils;
@@ -166,5 +168,12 @@ public class TravelerServiceImpl implements TravelerService {
                     .status(HttpStatus.OK)
                     .build();
         }
+    }
+
+    @Override
+    public TravelerDto getDetail(String token) {
+        String email = jwtService.extractUsername(token);
+        Traveler traveler = travelerRepository.getByEmail(email);
+        return travelerMapper.toTravelerDto(traveler);
     }
 }

@@ -6,7 +6,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -38,11 +37,11 @@ public class WriterRepository {
         }
     }
 
-    public void create(Writer writer) throws IOException, ParseException, NullPointerException, Exception {
+    public void create(Writer writer) throws Exception {
         em.persist(writer);
     }
 
-    public void update(Writer writer) throws IOException, ParseException, NullPointerException, Exception{
+    public void update(Writer writer) throws Exception{
         em.merge(writer);
     }
 }

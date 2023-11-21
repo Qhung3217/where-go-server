@@ -3,7 +3,6 @@ package com.wherego.wheregoserver.service.impl;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.article.CreateArticleDto;
 import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
-import com.wherego.wheregoserver.dto.writer.WriterUpdateDto;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;
 import com.wherego.wheregoserver.mapper.ArticleMapper;
 import com.wherego.wheregoserver.repository.ArticleRepository;

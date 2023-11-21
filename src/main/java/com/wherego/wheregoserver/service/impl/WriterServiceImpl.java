@@ -1,10 +1,10 @@
 package com.wherego.wheregoserver.service.impl;
 
 import com.wherego.wheregoserver.constant.FileConstant;
+import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
-import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.writer.WriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.dto.writer.WriterUpdateDto;

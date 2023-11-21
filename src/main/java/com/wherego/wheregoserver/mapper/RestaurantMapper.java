@@ -1,8 +1,8 @@
 package com.wherego.wheregoserver.mapper;
 
-import com.wherego.wheregoserver.dto.review.ReviewDetailDto;
 import com.wherego.wheregoserver.dto.restaurant.DetailRestaurantDto;
 import com.wherego.wheregoserver.dto.restaurant.SimpleRestaurantDto;
+import com.wherego.wheregoserver.dto.review.ReviewDetailDto;
 import com.wherego.wheregoserver.repository.entity.*;
 import com.wherego.wheregoserver.utils.MapperUtils;
 import org.mapstruct.*;
@@ -22,7 +22,7 @@ public interface RestaurantMapper  {
     @Mapping(target="features", source="features", qualifiedByName="getFeatureNames")
     @Mapping(target="averageRating", source="reviews", qualifiedByName="getAverageRating")
     @Mapping(target="totalRating", source="reviews", qualifiedByName="getTotalRating")
-    public SimpleRestaurantDto toSimpleRestaurantDto(Restaurant restaurant);
+    SimpleRestaurantDto toSimpleRestaurantDto(Restaurant restaurant);
 
     @Mapping(target="districtName", source="district.name")
     @Mapping(target="cuisines", source="cuisines", qualifiedByName = "getCuisineNames")
@@ -32,7 +32,7 @@ public interface RestaurantMapper  {
     @Mapping(target="totalRating", source="reviews", qualifiedByName="getTotalRating")
     @Mapping(target="reviews", source="reviews", qualifiedByName="getReviews")
     @Mapping(target="galleries", source="galleries", qualifiedByName="getGalleries")
-    public DetailRestaurantDto toDetailRestaurantDto(Restaurant restaurant);
+    DetailRestaurantDto toDetailRestaurantDto(Restaurant restaurant);
 
     @Named("getCuisineNames")
     default List<String> getCuisineNames(Set<Cuisine> cuisines){
@@ -53,17 +53,17 @@ public interface RestaurantMapper  {
     }
 
     @Named("getTotalRating")
-    public static int getTotalRating(Set<RestaurantReview> reviews){
+    static int getTotalRating(Set<RestaurantReview> reviews){
         return reviews.size();
     }
 
     @Named("getReviews")
-    public static Set<ReviewDetailDto> getReviews(Set<RestaurantReview> reviews){
+    static Set<ReviewDetailDto> getReviews(Set<RestaurantReview> reviews){
         return MapperUtils.objectReviewToReviewDetail(reviews);
     }
 
     @Named("getGalleries")
-    public static List<String> getGalleries(Set<RestaurantGallery> galleries){
+    static List<String> getGalleries(Set<RestaurantGallery> galleries){
         return MapperUtils.arrayToListString(galleries,"getImage");
     }
 }

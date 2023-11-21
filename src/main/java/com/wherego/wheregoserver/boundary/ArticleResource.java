@@ -3,7 +3,6 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.article.CreateArticleDto;
 import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
-import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.service.ArticleService;
 import com.wherego.wheregoserver.utils.HeaderUtils;
 import jakarta.transaction.Transactional;

@@ -20,6 +20,4 @@ public interface WriterMapper {
 
     WriterDto toWriterDto(Writer writer);
 
-    Writer toWriter(WriterUpdateDto writer);
-
 }

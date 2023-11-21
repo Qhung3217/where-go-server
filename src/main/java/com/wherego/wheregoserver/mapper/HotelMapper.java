@@ -1,6 +1,6 @@
 package com.wherego.wheregoserver.mapper;
 
-import com.wherego.wheregoserver.dto.ReviewDetailDto;
+import com.wherego.wheregoserver.dto.review.ReviewDetailDto;
 import com.wherego.wheregoserver.dto.hotel.DetailHotelDto;
 import com.wherego.wheregoserver.dto.hotel.SimpleHotelDto;
 import com.wherego.wheregoserver.repository.entity.*;

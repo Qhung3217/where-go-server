@@ -1,6 +1,6 @@
 package com.wherego.wheregoserver.utils;
 
-import com.wherego.wheregoserver.dto.ReviewDetailDto;
+import com.wherego.wheregoserver.dto.review.ReviewDetailDto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;

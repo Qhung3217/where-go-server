@@ -1,7 +1,6 @@
 package com.wherego.wheregoserver.exception;
 
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;

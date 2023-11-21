@@ -1,6 +1,9 @@
 package com.wherego.wheregoserver.dto.traveler;
 
-import com.wherego.wheregoserver.repository.entity.*;
+import com.wherego.wheregoserver.repository.entity.Booking;
+import com.wherego.wheregoserver.repository.entity.HotelReview;
+import com.wherego.wheregoserver.repository.entity.PlaceReview;
+import com.wherego.wheregoserver.repository.entity.RestaurantReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

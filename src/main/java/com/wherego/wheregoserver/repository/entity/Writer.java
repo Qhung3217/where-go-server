@@ -1,16 +1,15 @@
 package com.wherego.wheregoserver.repository.entity;
 
+import com.wherego.wheregoserver.constant.UserRole;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wherego.wheregoserver.constant.UserRole;
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @NoArgsConstructor

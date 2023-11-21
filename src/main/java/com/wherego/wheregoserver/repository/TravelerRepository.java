@@ -27,8 +27,6 @@ public class TravelerRepository {
         }
     }
 
-    ;
-
     public Traveler getByUsername(String username) {
         try {
             TypedQuery<Traveler> query = em.createNamedQuery(
@@ -43,13 +41,13 @@ public class TravelerRepository {
     }
 
     public void create(Traveler traveler)
-            throws IOException, ParseException, NullPointerException, Exception {
+            throws Exception {
         em.persist(traveler);
     }
 
 
     public void update(Traveler traveler)
-            throws IOException, ParseException, NullPointerException, Exception {
+            throws Exception {
         em.merge(traveler);
     }
 }

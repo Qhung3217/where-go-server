@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -40,12 +39,12 @@ public class ArticleRepository {
     }
 
     public void create(Article article)
-            throws IOException, ParseException, NullPointerException, Exception {
+            throws Exception {
         em.persist(article);
     }
 
     public void update(Article article)
-            throws IOException, ParseException, NullPointerException, Exception {
+            throws Exception {
         em.merge(article);
     }
 

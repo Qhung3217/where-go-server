@@ -5,8 +5,6 @@ import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.TravelerService;
 import com.wherego.wheregoserver.service.WriterService;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,7 +73,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             null,
                             userDetails.getAuthorities()
                     );
-                    System.out.println("JwtAuthenticationFilter executing, "+ authToken.toString());
+                    System.out.println("JwtAuthenticationFilter executing, "+ authToken);
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }

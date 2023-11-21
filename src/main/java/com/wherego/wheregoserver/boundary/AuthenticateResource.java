@@ -1,8 +1,8 @@
 package com.wherego.wheregoserver.boundary;
 
+import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
-import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;

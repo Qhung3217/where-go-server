@@ -51,6 +51,7 @@ private HandlerExceptionResolver exceptionResolver;
             "/search",
             "/article",
             "/article/random",
+            "/render/**",
     };
     private static final String[] TRAVELER_LIST_URL = {
             "/traveler/**",

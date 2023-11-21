@@ -2,10 +2,12 @@ package com.wherego.wheregoserver.exception.handler;
 
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.exception.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -60,6 +62,20 @@ public class GlobalExceptionHandler extends SecurityExceptionHandler {
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ResponseMessageDto> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex) {
         ResponseMessageDto msg = new ResponseMessageDto(HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+                ex.getMessage());
+        return new ResponseEntity<>(msg, msg.getStatus());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ResponseMessageDto> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        ResponseMessageDto msg = new ResponseMessageDto(HttpStatus.CONFLICT,
+                "Duplicate primary key");
+        return new ResponseEntity<>(msg, msg.getStatus());
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ResponseMessageDto> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+        ResponseMessageDto msg = new ResponseMessageDto(HttpStatus.BAD_REQUEST,
                 ex.getMessage());
         return new ResponseEntity<>(msg, msg.getStatus());
     }

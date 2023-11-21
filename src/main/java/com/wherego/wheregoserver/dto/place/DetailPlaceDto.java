@@ -1,6 +1,6 @@
 package com.wherego.wheregoserver.dto.place;
 
-import com.wherego.wheregoserver.dto.ReviewDetailDto;
+import com.wherego.wheregoserver.dto.review.ReviewDetailDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

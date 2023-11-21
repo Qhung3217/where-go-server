@@ -1,4 +1,4 @@
-package com.wherego.wheregoserver.dto;
+package com.wherego.wheregoserver.dto.review;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

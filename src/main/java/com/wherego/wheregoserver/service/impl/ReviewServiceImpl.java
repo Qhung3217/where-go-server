@@ -5,10 +5,7 @@ import com.wherego.wheregoserver.dto.review.ReviewCreateDto;
 import com.wherego.wheregoserver.exception.InvalidFieldValueException;
 import com.wherego.wheregoserver.exception.UserNotFoundException;
 import com.wherego.wheregoserver.mapper.ReviewMapper;
-import com.wherego.wheregoserver.repository.HotelRepository;
-import com.wherego.wheregoserver.repository.RestaurantRepository;
-import com.wherego.wheregoserver.repository.ReviewRepository;
-import com.wherego.wheregoserver.repository.TravelerRepository;
+import com.wherego.wheregoserver.repository.*;
 import com.wherego.wheregoserver.repository.entity.*;
 import com.wherego.wheregoserver.service.JwtService;
 import com.wherego.wheregoserver.service.ReviewService;
@@ -30,6 +27,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private RestaurantRepository restaurantRepository;
     @Autowired
+    private PlaceRepository placeRepository;
+    @Autowired
     private ReviewMapper reviewMapper;
     @Autowired
     private JwtService jwtService;
@@ -44,6 +43,12 @@ public class ReviewServiceImpl implements ReviewService {
     public ResponseMessageDto reviewRestaurant(String token, ReviewCreateDto review) {
         RestaurantReview restaurantReview = reviewMapper.toRestaurantReview(review);
         return review(token, restaurantReview, "restaurant", review.getCategoryId());
+    }
+
+    @Override
+    public ResponseMessageDto reviewPlace(String token, ReviewCreateDto review) {
+        PlaceReview placeReview = reviewMapper.toPlaceReview(review);
+        return review(token, placeReview, "place", review.getCategoryId());
     }
 
     private ResponseMessageDto review(
@@ -82,6 +87,16 @@ public class ReviewServiceImpl implements ReviewService {
                             .message("Create restaurant review successfully")
                             .status(HttpStatus.CREATED)
                             .build();
+
+                case "place":
+                    traveler = travelerRepository.getByEmail(jwtService.extractUsername(token));
+                    createReviewPlace(traveler, (PlaceReview) objectReview, categoryId);
+                    return ResponseMessageDto
+                            .builder()
+                            .message("Create place review successfully")
+                            .status(HttpStatus.CREATED)
+                            .build();
+
                 default:
                     throw new InvalidFieldValueException("Invalid category: " + category);
             }
@@ -118,5 +133,16 @@ public class ReviewServiceImpl implements ReviewService {
         reviewRepository.createRestaurantReview(review);
     }
 
+    private void createReviewPlace(
+            Traveler traveler,
+            PlaceReview review,
+            Long placeId
+    ) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Place place = placeRepository.getById(placeId);
+        review.setPlace(place);
 
+        review.setTraveler(traveler);
+
+        reviewRepository.createPlaceReview(review);
+    }
 }

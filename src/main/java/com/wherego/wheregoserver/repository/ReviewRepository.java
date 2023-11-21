@@ -1,6 +1,7 @@
 package com.wherego.wheregoserver.repository;
 
 import com.wherego.wheregoserver.repository.entity.HotelReview;
+import com.wherego.wheregoserver.repository.entity.PlaceReview;
 import com.wherego.wheregoserver.repository.entity.RestaurantReview;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,5 +18,9 @@ public class ReviewRepository {
 
     public void createRestaurantReview(RestaurantReview restaurantReview) {
         em.persist(restaurantReview);
+    }
+
+    public void createPlaceReview(PlaceReview review) {
+        em.persist(review);
     }
 }

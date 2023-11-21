@@ -6,6 +6,7 @@ import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
+import com.wherego.wheregoserver.dto.traveler.TravelerUpdateDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,6 @@ public interface TravelerService {
     TravelerDto getDetail(String token);
 
     ResponseMessageDto changePassword(String token, ChangePasswordDto password);
+
+    ResponseMessageDto update(String token, TravelerUpdateDto updateTraveler);
 }

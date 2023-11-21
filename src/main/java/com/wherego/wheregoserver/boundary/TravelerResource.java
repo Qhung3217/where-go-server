@@ -78,6 +78,8 @@ public class TravelerResource {
                 return reviewHotel(token, review);
             case "restaurant":
                 return reviewRestaurant(token, review);
+            case "place":
+                return reviewPlace(token, review);
             default:
                 throw new MissingParamsException(new String[]{"category"});
         }
@@ -88,5 +90,8 @@ public class TravelerResource {
     }
     private ResponseEntity<ResponseMessageDto> reviewRestaurant(String token, ReviewCreateDto review) {
         return ResponseEntity.ok(reviewService.reviewRestaurant(token, review));
+    }
+    private ResponseEntity<ResponseMessageDto> reviewPlace(String token, ReviewCreateDto review) {
+        return ResponseEntity.ok(reviewService.reviewPlace(token, review));
     }
 }

@@ -2,6 +2,7 @@ package com.wherego.wheregoserver.service.impl;
 
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.article.CreateArticleDto;
+import com.wherego.wheregoserver.dto.article.DetailArticleDto;
 import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
 import com.wherego.wheregoserver.exception.ResourceInvalidException;
 import com.wherego.wheregoserver.mapper.ArticleMapper;
@@ -39,6 +40,11 @@ public class ArticleServiceImpl implements ArticleService {
                 .stream()
                 .map(articleMapper::toSimpleArticleDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DetailArticleDto getById(Long id) {
+        return articleMapper.toDetailArticleDto(articleRepository.getById(id));
     }
 
     @Override

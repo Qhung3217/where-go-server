@@ -2,9 +2,11 @@ package com.wherego.wheregoserver.boundary;
 
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.article.CreateArticleDto;
+import com.wherego.wheregoserver.dto.article.DetailArticleDto;
 import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
 import com.wherego.wheregoserver.service.ArticleService;
 import com.wherego.wheregoserver.utils.HeaderUtils;
+import jakarta.annotation.security.PermitAll;
 import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +86,11 @@ public class ArticleResource {
                 ),
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping("/detail/{id}")
+    @PermitAll
+    public ResponseEntity<DetailArticleDto> getDetail(@PathVariable Long id) {
+        return ResponseEntity.ok(articleService.getById(id));
     }
 }

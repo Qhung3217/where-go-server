@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SimpleArticleDto {
+@Builder
+public class DetailArticleDto {
     private Long id;
     private String title;
     private String thumbnail;
+    private String content;
     private String shortDescription;
     private Date createDate;
     private SimpleWriterDto writer;

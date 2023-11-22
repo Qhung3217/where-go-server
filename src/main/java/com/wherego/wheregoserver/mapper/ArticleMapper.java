@@ -1,6 +1,7 @@
 package com.wherego.wheregoserver.mapper;
 
 import com.wherego.wheregoserver.dto.article.CreateArticleDto;
+import com.wherego.wheregoserver.dto.article.DetailArticleDto;
 import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
 import com.wherego.wheregoserver.dto.writer.SimpleWriterDto;
 import com.wherego.wheregoserver.repository.entity.Article;
@@ -24,6 +25,7 @@ public interface ArticleMapper {
 
     @Mapping(target="thumbnail", ignore = true)
     Article toArticle(CreateArticleDto article);
+    DetailArticleDto toDetailArticleDto(Article id);
 
     @Named("toSimpleWriter")
     static SimpleWriterDto getSimpleArticle(Writer writer){
@@ -36,4 +38,5 @@ public interface ArticleMapper {
                 .tels(writer.getTels())
                 .build();
     }
+
 }

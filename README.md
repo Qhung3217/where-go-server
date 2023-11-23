@@ -4,7 +4,7 @@ Spring Boot project for tourism promotion and hotel booking. This RESTful web se
 
 ## Tech Stack
 
-- **Spring Framework:** Spring Rest Api, Spring Security
+- **Spring Framework:** Spring Boot, Spring Web, Spring Security, Spring Data JPA
 - **Language:** Java
 
 ## Maven external dependencies

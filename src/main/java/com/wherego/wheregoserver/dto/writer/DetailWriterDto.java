@@ -1,5 +1,7 @@
 package com.wherego.wheregoserver.dto.writer;
 
+import com.wherego.wheregoserver.dto.article.DetailArticleNoAuthorDto;
+import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
 import com.wherego.wheregoserver.repository.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,12 +15,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WriterDto {
+public class DetailWriterDto {
     private String email;
     private String name;
     private String tels;
     private String avatar;
     private Date dob;
     private String username;
-    private Set<Article> articles;
+    private Set<DetailArticleNoAuthorDto> articles;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PlaceServiceImp implements PlaceService {
+public class PlaceServiceImpl implements PlaceService {
     @Autowired
     private PlaceRepository placeRepository;
     @Autowired

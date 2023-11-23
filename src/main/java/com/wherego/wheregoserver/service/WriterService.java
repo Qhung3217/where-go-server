@@ -4,7 +4,7 @@ import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
-import com.wherego.wheregoserver.dto.writer.WriterDto;
+import com.wherego.wheregoserver.dto.writer.DetailWriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.dto.writer.WriterUpdateDto;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public interface WriterService {
 
     ResponseMessageDto checkEmailExist(String email);
 
-    WriterDto getDetail(String token);
+    DetailWriterDto getDetail(String token);
 
     ResponseMessageDto changePassword(String token, ChangePasswordDto password);
 

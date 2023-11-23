@@ -2,7 +2,7 @@ package com.wherego.wheregoserver.boundary;
 
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
-import com.wherego.wheregoserver.dto.writer.WriterDto;
+import com.wherego.wheregoserver.dto.writer.DetailWriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterUpdateDto;
 import com.wherego.wheregoserver.service.WriterService;
 import com.wherego.wheregoserver.utils.HeaderUtils;
@@ -26,7 +26,7 @@ public class WriterResource {
     }
 
     @GetMapping(value="/detail")
-    public ResponseEntity<WriterDto> getDetail(@RequestHeader("Authorization") String authorizationHeader){
+    public ResponseEntity<DetailWriterDto> getDetail(@RequestHeader("Authorization") String authorizationHeader){
         String token = HeaderUtils.getToken(authorizationHeader);
         return ResponseEntity.ok(writerService.getDetail(token));
     }

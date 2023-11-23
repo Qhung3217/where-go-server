@@ -3,7 +3,7 @@ package com.wherego.wheregoserver.boundary;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.review.ReviewCreateDto;
-import com.wherego.wheregoserver.dto.traveler.TravelerDto;
+import com.wherego.wheregoserver.dto.traveler.DetailTravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerUpdateDto;
 import com.wherego.wheregoserver.exception.MissingParamsException;
 import com.wherego.wheregoserver.service.ReviewService;
@@ -32,7 +32,7 @@ public class TravelerResource {
     }
 
     @GetMapping(value = "/detail")
-    public ResponseEntity<TravelerDto> getDetail(@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<DetailTravelerDto> getDetail(@RequestHeader("Authorization") String authorizationHeader) {
         String token = HeaderUtils.getToken(authorizationHeader);
         return ResponseEntity.ok(travelerService.getDetail(token));
     }

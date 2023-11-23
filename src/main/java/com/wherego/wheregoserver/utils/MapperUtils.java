@@ -1,6 +1,7 @@
 package com.wherego.wheregoserver.utils;
 
 import com.wherego.wheregoserver.dto.review.ReviewDetailDto;
+import com.wherego.wheregoserver.dto.review.SimpleReviewDto;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -35,6 +36,18 @@ public class MapperUtils {
             reviewDetail.setTravelerName(invokeMethod(review, "getTraveler.getName"));
             reviewDetail.setTravelerAvatar(invokeMethod(review, "getTraveler.getAvatar"));
             result.add(reviewDetail);
+        }
+        return result;
+    }
+
+    public static <T> Set<SimpleReviewDto> objectReviewToSimpleReview(Set<T> reviews) {
+        Set<SimpleReviewDto> result = new HashSet<>();
+        for (T review : reviews) {
+            SimpleReviewDto simpleReview = new SimpleReviewDto();
+            simpleReview.setId(invokeMethodLong(review, "getId"));
+            simpleReview.setComment(invokeMethod(review, "getComment"));
+            simpleReview.setRating(invokeMethodInt(review, "getRating"));
+            result.add(simpleReview);
         }
         return result;
     }

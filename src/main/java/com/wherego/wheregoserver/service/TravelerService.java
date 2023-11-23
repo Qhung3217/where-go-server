@@ -4,7 +4,7 @@ import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
-import com.wherego.wheregoserver.dto.traveler.TravelerDto;
+import com.wherego.wheregoserver.dto.traveler.DetailTravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerUpdateDto;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +22,7 @@ public interface TravelerService {
 
     ResponseMessageDto checkEmailExist(String email);
 
-    TravelerDto getDetail(String token);
+    DetailTravelerDto getDetail(String token);
 
     ResponseMessageDto changePassword(String token, ChangePasswordDto password);
 

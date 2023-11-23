@@ -5,7 +5,7 @@ import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.AuthenticateResponseDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.auth.CredentialDto;
-import com.wherego.wheregoserver.dto.traveler.TravelerDto;
+import com.wherego.wheregoserver.dto.traveler.DetailTravelerDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerRegisterDto;
 import com.wherego.wheregoserver.dto.traveler.TravelerUpdateDto;
 import com.wherego.wheregoserver.exception.InvalidFieldNameException;
@@ -174,10 +174,10 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    public TravelerDto getDetail(String token) {
+    public DetailTravelerDto getDetail(String token) {
         String email = jwtService.extractUsername(token);
         Traveler traveler = travelerRepository.getByEmail(email);
-        return travelerMapper.toTravelerDto(traveler);
+        return travelerMapper.toDetailTravelerDto(traveler);
     }
 
     @Override

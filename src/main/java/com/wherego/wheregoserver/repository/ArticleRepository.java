@@ -8,8 +8,6 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 @Repository

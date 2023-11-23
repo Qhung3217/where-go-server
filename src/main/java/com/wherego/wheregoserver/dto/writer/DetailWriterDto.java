@@ -1,8 +1,6 @@
 package com.wherego.wheregoserver.dto.writer;
 
 import com.wherego.wheregoserver.dto.article.DetailArticleNoAuthorDto;
-import com.wherego.wheregoserver.dto.article.SimpleArticleDto;
-import com.wherego.wheregoserver.repository.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

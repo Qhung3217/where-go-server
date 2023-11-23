@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.boundary;
 
+import com.wherego.wheregoserver.constant.UserRole;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.writer.DetailWriterDto;
@@ -9,6 +10,7 @@ import com.wherego.wheregoserver.utils.HeaderUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +18,7 @@ import java.sql.Date;
 
 @RestController
 @RequestMapping(value="/writer")
-//@PreAuthorize("hasRole("+UserRole.WRITER+")")
+@PreAuthorize("hasRole('"+ UserRole.WRITER+"')")
 public class WriterResource {
     @Autowired
     private WriterService writerService;

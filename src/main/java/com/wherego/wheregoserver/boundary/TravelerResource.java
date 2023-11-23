@@ -1,5 +1,6 @@
 package com.wherego.wheregoserver.boundary;
 
+import com.wherego.wheregoserver.constant.UserRole;
 import com.wherego.wheregoserver.dto.ResponseMessageDto;
 import com.wherego.wheregoserver.dto.auth.ChangePasswordDto;
 import com.wherego.wheregoserver.dto.review.ReviewCreateDto;
@@ -13,6 +14,7 @@ import jakarta.transaction.Transactional;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +22,7 @@ import java.sql.Date;
 
 @RestController
 @RequestMapping("/traveler")
+@PreAuthorize("hasRole('"+ UserRole.TRAVELER+"')")
 public class TravelerResource {
     @Autowired
     private TravelerService travelerService;

@@ -1,11 +1,9 @@
 package com.wherego.wheregoserver.mapper;
 
 import com.wherego.wheregoserver.dto.article.DetailArticleNoAuthorDto;
-import com.wherego.wheregoserver.dto.booking.SimpleBookingDto;
 import com.wherego.wheregoserver.dto.writer.DetailWriterDto;
 import com.wherego.wheregoserver.dto.writer.WriterRegisterDto;
 import com.wherego.wheregoserver.repository.entity.Article;
-import com.wherego.wheregoserver.repository.entity.Booking;
 import com.wherego.wheregoserver.repository.entity.Writer;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;

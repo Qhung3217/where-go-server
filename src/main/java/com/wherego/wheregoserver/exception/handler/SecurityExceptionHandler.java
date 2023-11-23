@@ -5,12 +5,13 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.nio.file.AccessDeniedException;
+
 
 @RestControllerAdvice
 public abstract class SecurityExceptionHandler {
@@ -24,7 +25,7 @@ public abstract class SecurityExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ResponseMessageDto> handleAccessDeniedException(AccessDeniedException ex) {
         ResponseMessageDto msg = new ResponseMessageDto(HttpStatus.FORBIDDEN,
-                "Not Authorized");
+                "Access denied");
         return new ResponseEntity<>(msg, msg.getStatus());
     }
 

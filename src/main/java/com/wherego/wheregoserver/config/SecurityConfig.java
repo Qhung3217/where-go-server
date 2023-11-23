@@ -56,6 +56,7 @@ private HandlerExceptionResolver exceptionResolver;
     };
     private static final String[] TRAVELER_LIST_URL = {
             "/traveler/**",
+            "/booking"
     };
     private static final String[] WRITER_LIST_URL = {
             "/writer/**",
